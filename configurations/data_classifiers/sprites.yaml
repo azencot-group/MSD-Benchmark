@@ -1,0 +1,52 @@
+name: ${dataset_variant}_classifier
+out_dir: "${msd_out_root}/judge_classifiers/${name}"
+checkpoint_dir: ${out_dir}
+device: cuda
+seed: 42
+load_model: best
+dataset: configurations/datasets/sprites.yaml
+batch_size: 32
+test_batch_size: ${batch_size}
+model:
+  name: VideoClassifier
+  parameters:
+    channels: 3
+    frames: 8
+    g_dim: 128
+    hidden_dim: 256
+trainer:
+  name: ClassifierTrainer
+  parameters: {}
+  resume: false
+  sequence_loss:
+    name: CrossEntropyLoss
+    parameters: { }
+  static_loss:
+    name: FramewiseCrossEntropyLoss
+    parameters: { }
+  optimizer:
+    name: Adam
+    parameters:
+      lr: 0.001
+      betas:
+        - 0.5
+        - 0.999
+  epochs:
+    start: 1
+    end: 300
+  save_model: true
+  verbose: 5
+evaluation:
+  evaluation_manager:
+    name: EvaluationManager
+    parameters:
+      dataset_type: val
+  evaluators:
+    - name: ClassifierEvaluator
+      parameters: {}
+loggers:
+  - name: FileLogger
+    parameters:
+      name: ${name}
+      show: false
+      log_path: ${out_dir}

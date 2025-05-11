@@ -1,0 +1,48 @@
+model_name: beta_vae
+name: ${model_name}_${dataset_variant}
+out_dir: ${msd_out_root}/models/${name}
+checkpoint_dir: ${out_dir}
+device: cuda
+load_model: best
+dataset: configurations/datasets/dmelodies.yaml
+training_evaluation: configurations/evaluations/audio_training_evaluation.yaml
+testing_evaluation: configurations/evaluations/audio_testing_evaluation.yaml
+batch_size: 32
+test_batch_size: ${batch_size}
+latent_explorer_cfg:
+  name: PredictorLatentExplorer
+  parameters:
+    batch_exploration: false
+model:
+  name: AE
+  parameters:
+    in_channels: 150
+    latent_dim: 256
+    hidden_dims:
+      - 32
+      - 64
+      - 128
+      - 256
+    lstm_hidden_dim: 512
+    num_frames: 128
+    width: 64
+    height: 64
+    beta: 3
+    sparsity_weight: 0
+    mode: audio
+trainer:
+  name: AE_Trainer
+  parameters: {}
+  optimizer:
+    name: Adam
+    parameters:
+      lr: 0.0001
+      betas:
+        - 0.5
+        - 0.999
+  resume: false
+  epochs:
+    start: 1
+    end: 500
+  save_model: true
+  verbose: 5

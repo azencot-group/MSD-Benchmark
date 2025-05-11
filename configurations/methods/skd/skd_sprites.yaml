@@ -1,0 +1,62 @@
+model_name: skd
+name: ${model_name}_${dataset_variant}
+out_dir: ${msd_out_root}/models/${name}
+checkpoint_dir: ${out_dir}
+device: cuda
+load_model: best
+dataset: configurations/datasets/sprites.yaml
+training_evaluation: configurations/evaluations/video_training_evaluation.yaml
+testing_evaluation: configurations/evaluations/video_testing_evaluation.yaml
+batch_size: 32
+test_batch_size: 1024
+latent_explorer_cfg:
+  name: PredictorLatentExplorer
+  parameters:
+    batch_exploration: true
+#  name: PredictorLatentExplorerStaticDynamic
+#  parameters:
+#    batch_exploration: true
+#    n_samples: 1000
+model:
+  name: KoopmanCNN
+  parameters:
+    dropout: 0.2
+    noise: none
+    w_rec: 15.0
+    w_pred: 1.0
+    w_eigs: 1.0
+    eigs_thresh: 0.5
+    static_size: 7
+    static_mode: ball
+    dynamic_mode: real
+    dynamic_thresh: 0.5
+    ball_thresh: 0.6
+    device: ${device}
+    n_frames: 8
+    n_channels: 3
+    n_height: 64
+    n_width: 64
+    conv_dim: 32
+    k_dim: 40
+    hidden_dim: 80
+    rnn: both
+    lstm_dec_bi: false
+    data_type: video
+trainer:
+  name: SKD_Trainer
+  save_model: true
+  parameters: {}
+  resume: false
+  scheduler:
+    name: StepLR
+    parameters:
+      step_size: 500
+      gamma: 0.5
+  optimizer:
+    name: Adam
+    parameters:
+      lr: 0.001
+  epochs:
+    start: 1
+    end: 250
+  verbose: 5

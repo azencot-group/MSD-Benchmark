@@ -1,0 +1,76 @@
+model_name: mgp_vae
+name: ${model_name}_${dataset_variant}
+out_dir: ${msd_out_root}/models/${name}
+checkpoint_dir: ${out_dir}
+device: cuda
+load_model: best
+dataset: configurations/datasets/dsprites_static.yaml
+training_evaluation: configurations/evaluations/video_training_evaluation.yaml
+testing_evaluation: configurations/evaluations/video_testing_evaluation.yaml
+batch_size: 32
+test_batch_size: ${batch_size}
+latent_explorer_cfg:
+  name: PredictorLatentExplorer
+  parameters:
+    batch_exploration: false
+#  name: SwapLatentExplorer
+#  parameters:
+#    latent_divider_cfg:
+#      name: DisjointLatentDivider
+#      parameters:
+#        min_depth: 1
+#        max_depth: 3
+#    batch_exploration: false
+model:
+  name: MGP_VAE
+  parameters:
+    NUM_INPUT_CHANNELS: 3
+    NDIM: 12
+    NUM_FRAMES: 16
+    H: 64
+    W: 64
+    fac: 0.5
+    NUM_FEA: 4
+    FEA:
+    - bb2
+    - bb2
+    - bb2
+    - bb2
+    mean_start:
+    - -2
+    - -2
+    - -2
+    - -2
+    mean_end:
+    - 2
+    - 2
+    - 2
+    - 2
+    KEEP_RHO: false
+trainer:
+  name: MGP_VAE_Trainer
+  parameters:
+    kl_beta: 3.0
+    zero_mean: true
+  mse_loss:
+    name: MSELoss
+    parameters:
+      reduction: sum
+  scheduler:
+    name: StepLR
+    parameters:
+      step_size: 100
+      gamma: 0.5
+  optimizer:
+    name: Adam
+    parameters:
+      lr: 0.01
+      betas:
+      - 0.5
+      - 0.999
+  resume: false
+  epochs:
+    start: 1
+    end: 500
+  save_model: true
+  verbose: 5

@@ -1,0 +1,31 @@
+evaluation:
+  evaluation_manager:
+    name: EvaluationManager
+    parameters:
+      main: 0
+      repeat: 1
+      dataset_type: test
+      judge_cfg:
+        name: VLMJudge
+        parameters:
+          vlm_backbone_cfg:
+            name: OpenAIGPTBackbone
+            parameters: {} # Will look for api_key in .openai/token.txt, otherwise the api_key can be passed as argument
+      predictor_cfg:
+        name: GradientBoostingClassifier
+        parameters:
+          max_depth: 3
+      latent_explorer_cfg: ${latent_explorer_cfg}
+  evaluators:
+    - name: MultiFactorSwap
+      parameters: { }
+    - name: DCIEvaluator
+      parameters:
+        test_size: 0.2
+        random_state: 42
+loggers:
+  - name: FileLogger
+    parameters:
+      name: ${name}
+      show: false
+      log_path: ${out_dir}

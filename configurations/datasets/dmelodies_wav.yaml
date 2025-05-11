@@ -1,0 +1,47 @@
+dataset_name: dmelodies
+dataset_variant: dmelodies_wav
+data_type: 'Audio'
+classifier_path: "${msd_out_root}/judge_classifiers/${dataset_variant}_classifier/${dataset_variant}_classifier_best.pth"
+dataset:
+  dataset:
+    name: DisentanglementDataset
+    parameters: { }
+  reader:
+    name: HuggingFaceReader
+    parameters:
+      repo_id: "TalBarami/msd_${dataset_variant}"
+  preprocess_hooks:
+    - name: ToNumpy
+      parameters: {}
+    - name: Normalize
+      parameters:
+        data_min: 0
+        data_max: 2**15
+  splits:
+    train:
+      preprocess_hooks: ${dataset.preprocess_hooks}
+      loader:
+        name: DataLoader
+        parameters:
+          batch_size: ${batch_size}
+          shuffle: true
+          pin_memory: true
+          drop_last: true
+    val:
+      preprocess_hooks: ${dataset.preprocess_hooks}
+      loader:
+        name: DataLoader
+        parameters:
+          batch_size: ${test_batch_size}
+          shuffle: false
+          pin_memory: true
+          drop_last: true
+    test:
+      preprocess_hooks: ${dataset.preprocess_hooks}
+      loader:
+        name: DataLoader
+        parameters:
+          batch_size: ${test_batch_size}
+          shuffle: false
+          pin_memory: true
+          drop_last: true

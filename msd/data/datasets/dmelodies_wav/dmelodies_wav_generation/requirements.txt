@@ -1,0 +1,7 @@
+midi-ddsp
+numpy<=1.23.0
+flake8
+pandas
+joblib
+tqdm
+music21

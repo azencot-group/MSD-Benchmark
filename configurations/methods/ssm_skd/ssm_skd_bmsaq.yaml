@@ -1,0 +1,48 @@
+model_name: ssm-skd
+name: ${model_name}_${dataset_variant}
+out_dir: ${msd_out_root}/models/${name}
+checkpoint_dir: ${out_dir}
+device: cuda
+load_model: best
+dataset: configurations/datasets/bmsaq.yaml
+training_evaluation: configurations/evaluations/timeseries_training_evaluation.yaml
+testing_evaluation: configurations/evaluations/timeseries_testing_evaluation.yaml
+batch_size: 32
+test_batch_size: 1024
+latent_explorer_cfg:
+  name: PredictorLatentExplorer
+  parameters:
+    batch_exploration: true
+#  name: SsmSkdLatentExplorer
+#  parameters:
+#    batch_exploration: false
+model:
+  name: SsmSkd
+  parameters:
+    in_dim: 13
+    k_dim: 54
+    hidden_dim: 90
+    data_type: timeseries
+trainer:
+  name: SsmSkdTrainer
+  save_model: true
+  parameters:
+    w_rec: 16.0
+    w_pred: 1.0
+    w_eigs: 0.25
+    dynamic_thresh: 0.275
+    gradient_clip_val: 0.5
+  resume: false
+  scheduler:
+    name: StepLR
+    parameters:
+      step_size: 150
+      gamma: 0.5
+  optimizer:
+    name: Adam
+    parameters:
+      lr: 0.001
+  epochs:
+    start: 1
+    end: 250
+  verbose: 10

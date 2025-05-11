@@ -1,0 +1,56 @@
+evaluation:
+  evaluation_manager:
+    name: EvaluationManager
+    parameters:
+      main: 0
+      repeat: 5
+      dataset_type: test
+      judge_cfg:
+        name: ClassifierJudge
+        parameters:
+          classifier_cfg:
+            name: ${data_type}Classifier
+            parameters: {}
+          checkpoint_path: ${classifier_path}
+      predictor_cfg:
+        name: GradientBoostingClassifier
+        parameters:
+          max_depth: 3
+      latent_explorer_cfg: ${latent_explorer_cfg}
+  evaluators:
+    - name: MultiFactorSwap
+      parameters: { }
+    - name: MultiFactorSample
+      parameters: { }
+    - name: ConsistencySwap
+      parameters: { }
+    - name: ConsistencyGlobalSample
+      parameters: { }
+    - name: ConsistencyLocalSample
+      parameters: { }
+    - name: DCIEvaluator
+      parameters:
+        test_size: 0.2
+        random_state: 42
+    - name: TwoFactorSwap
+      parameters: { }
+    - name: TwoFactorSample
+      parameters: { }
+    - name: VideoReconstruction
+      parameters:
+        n_samples: 6
+    - name: SampleVisualizer
+      parameters:
+        n_samples: 6
+    - name: LatentSwapVisualizer
+      parameters:
+        n_samples: 10
+        skip_frames: 2
+    - name: LatentSampleVisualizer
+      parameters: { }
+loggers:
+  - name: FileLogger
+    parameters:
+      name: ${name}
+      show: false
+      log_path: ${out_dir}

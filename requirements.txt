@@ -1,0 +1,17 @@
+torch~=2.1.2
+numpy~=1.26.4
+pandas
+omegaconf
+matplotlib
+neptune
+tabulate
+torchvision
+scikit-learn
+h5py
+opencv-python
+flake8
+tqdm
+datasets
+huggingface-hub
+imageio
+# for audio: conda install torch cuda=11.8, then tensorflow-gpu

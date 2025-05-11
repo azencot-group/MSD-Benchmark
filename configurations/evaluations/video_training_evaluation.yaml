@@ -1,0 +1,36 @@
+seed: 42
+evaluation:
+  evaluation_manager:
+    name: EvaluationManager
+    parameters:
+      main: 0
+      repeat: 1
+      dataset_type: val
+      judge_cfg:
+        name: ClassifierJudge
+        parameters:
+          classifier_cfg:
+            name: ${data_type}Classifier
+            parameters: {}
+          checkpoint_path: ${classifier_path}
+      predictor_cfg:
+        name: GradientBoostingClassifier
+        parameters:
+          max_depth: 3
+      latent_explorer_cfg: ${latent_explorer_cfg}
+  evaluators:
+    - name: MultiFactorSample
+      parameters: {}
+#    - name: TwoFactorSample
+#      parameters: {}
+#    - name: VideoReconstruction
+#      parameters:
+#        n_samples: 4
+#    - name: LatentSwapVisualizer
+#      parameters: {}
+loggers:
+  - name: FileLogger
+    parameters:
+      name: ${name}
+      show: false
+      log_path: ${out_dir}
