@@ -1,7 +1,7 @@
 model_name: skd
 name: ${model_name}_${dataset_variant}
-out_dir: ${msd_out_root}/models/${name}
-checkpoint_dir: ${msd_out_root}/models/${model_name}_3dshapes
+out_dir: ${msd_root}/models/${name}
+checkpoint_dir: ${msd_root}/models/${model_name}_3dshapes
 device: cuda
 load_model: best
 dataset: configurations/datasets/vlm_annotated/ufs_3dshapes.yaml

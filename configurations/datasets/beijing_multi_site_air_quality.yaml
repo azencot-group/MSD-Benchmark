@@ -1,7 +1,7 @@
 dataset_name: beijing_multi_site_air_quality
 dataset_variant: beijing_multi_site_air_quality
 data_type: 'TimeSeries'
-classifier_path: "${msd_out_root}/judge_classifiers/${dataset_variant}_classifier/${dataset_variant}_classifier_best.pth"
+classifier_path: "${msd_root}/judge_classifiers/${dataset_variant}_classifier/${dataset_variant}_classifier_best.pth"
 dataset:
   dataset:
     name: DisentanglementDataset

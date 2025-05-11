@@ -49,8 +49,13 @@ evaluation:
     - name: LatentSampleVisualizer
       parameters: { }
 loggers:
-  - name: FileLogger
+#  - name: FileLogger
+#    parameters:
+#      name: ${name}
+#      show: false
+#      log_path: ${out_dir}
+  - name: PrintLogger
     parameters:
       name: ${name}
-      show: false
-      log_path: ${out_dir}
+      show: true
+      log_level: INFO

@@ -16,19 +16,21 @@ class PrintLogger(BaseLogger):
     Optionally displays plots inline.
     """
 
-    def __init__(self, name: str, show: bool = False):
+    def __init__(self, name: str, show: bool = False, log_level: int = logging.DEBUG):
         """
         :param name: Logger name.
         :param show: If True, display matplotlib plots using `fig.show()`.
+        :param log_level: Logging level (default: logging.DEBUG).
         """
         super().__init__()
         self.name = name
         self.show = show
+        self.log_level = log_level
         self.logger = logging.getLogger(name)
-        self.logger.setLevel(logging.DEBUG)
+        self.logger.setLevel(self.log_level)
         self.formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         sh = logging.StreamHandler()
-        sh.setLevel(logging.DEBUG)
+        sh.setLevel(self.log_level)
         sh.setFormatter(self.formatter)
         self.logger.addHandler(sh)
 
@@ -95,18 +97,19 @@ class FileLogger(PrintLogger):
     with persistent file output.
     """
 
-    def __init__(self, name: str, log_path: str, show: bool = False):
+    def __init__(self, name: str, log_path: str, show: bool = False, log_level: int = logging.DEBUG):
         """
         :param name: Logger name.
         :param log_path: Directory to save log outputs.
         :param show: If True, display plots inline.
+        :param log_level: Logging level.
         """
-        super().__init__(name, show)
+        super().__init__(name, show, log_level)
         self.path = log_path
         init_directories(self.path)
 
         fh = logging.FileHandler(osp.join(self.path, f'{self.name}.log'))
-        fh.setLevel(logging.DEBUG)
+        fh.setLevel(self.log_level)
         fh.setFormatter(self.formatter)
         self.logger.addHandler(fh)
 

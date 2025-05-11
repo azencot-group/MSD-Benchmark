@@ -1,6 +1,6 @@
 model_name: ssm-skd
 name: ${model_name}_${dataset_variant}
-out_dir: ${msd_out_root}/models/${name}
+out_dir: ${msd_root}/models/${name}
 checkpoint_dir: ${out_dir}
 device: cuda
 load_model: best

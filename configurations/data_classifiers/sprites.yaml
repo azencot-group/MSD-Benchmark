@@ -1,5 +1,5 @@
 name: ${dataset_variant}_classifier
-out_dir: "${msd_out_root}/judge_classifiers/${name}"
+out_dir: "${msd_root}/judge_classifiers/${name}"
 checkpoint_dir: ${out_dir}
 device: cuda
 seed: 42

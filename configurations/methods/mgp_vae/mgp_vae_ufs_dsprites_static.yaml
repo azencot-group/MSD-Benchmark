@@ -1,7 +1,7 @@
 model_name: mgp_vae
 name: ${model_name}_${dataset_variant}
-out_dir: ${msd_out_root}/models/${name}
-checkpoint_dir: ${msd_out_root}/models/${model_name}_dsprites_static
+out_dir: ${msd_root}/models/${name}
+checkpoint_dir: ${msd_root}/models/${model_name}_dsprites_static
 device: cuda
 load_model: best
 dataset: configurations/datasets/vlm_annotated/ufs_dsprites_static.yaml

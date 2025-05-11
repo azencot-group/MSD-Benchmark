@@ -47,10 +47,7 @@ class FileReader(AbstractReader):
             index = [index]
         if any(i >= self.__len__() for i in index):
             raise IndexError(f"Index {index} out of range for dataset of length {self.__len__()}.")
-        try:
-            df = self.df.loc[index]
-        except Exception:
-            print(1)
+        df = self.df.loc[index]
         static = {col: df[col].to_numpy().squeeze() for col in self.static_factors}
         dynamic = {col: df[col].to_numpy().squeeze() for col in self.dynamic_factors}
         data = np.array([self._read(x) for x in df['file_path'].values]).squeeze()

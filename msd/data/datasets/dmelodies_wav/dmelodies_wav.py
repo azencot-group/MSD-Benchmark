@@ -51,30 +51,34 @@ class dMelodiesWAVProcess:
                        'values': {int(v) if type(v) == np.int64 else v: int(k) for k, v in values_map[s].items()}} for i, s in enumerate(self.label_cols)}
         return classes
 
-if __name__ == '__main__':
-    pd.set_option('display.max_rows', 500)
-    pd.set_option('display.max_columns', 500)
-    pd.set_option('display.width', 1000)
-
-    dmw_root = r'/cs/cs_groups/azencot_group/MSD/datasets/dmelodies_wav'
-    files_info = r'/cs/cs_groups/azencot_group/MSD/datasets/dmelodies_wav/files_info.csv'
-    classes_file = r'/cs/cs_groups/azencot_group/MSD/datasets/dmelodies_wav/classes.json'
-    dmw = dMelodiesWAVProcess(dmw_root)
-    if osp.exists(files_info) and osp.exists(classes_file):
-        df = pd.read_csv(files_info)
-        classes = read_json(classes_file)
+def initialize_dmelodies_wav(files_dir, df_path, classes_path, seed=42, test_size=0.15, val_size=0.15):
+    """
+    Initialize the dMelodiesWAV dataset by creating the files info dataframe and the classes.json file if they do not exist.
+    :param files_dir: Path to the directory containing the dMelodiesWAV files.
+    :param df_path: Path to the CSV file containing the files info.
+    :param classes_path: Path to the JSON file containing the classes info.
+    :param seed: Random seed for shuffling the data.
+    :param test_size: Proportion of the data to be used for testing.
+    :param val_size: Proportion of the data to be used for validation.
+    :return:
+    """
+    dmw = dMelodiesWAVProcess(files_dir)
+    if osp.exists(df_path) and osp.exists(classes_path):
+        df = pd.read_csv(df_path)
+        classes = read_json(classes_path)
     else:
-        df = dmw.create_files_info()
+        df = dmw.create_files_info(seed=seed, test_size=test_size, val_size=val_size)
         classes = dmw.create_classes(df)
-        df.to_csv(files_info, index=False)
-        write_json(classes_file, classes)
+        df.to_csv(df_path, index=False)
+        write_json(classes_path, classes)
 
+    # Initialize the AudioReader with the files_root, files_info, split, classes, and sample_rate to access the audio files
     reader = AudioReader(
-        files_root=dmw_root,
+        files_root=files_dir,
         files_info=df,
         split='train',
         classes=classes,
         sample_rate=dmw.sample_rate
     )
-    for i, x in enumerate(reader):
-        continue
+    return reader
+

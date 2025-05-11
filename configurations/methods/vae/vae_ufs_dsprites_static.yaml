@@ -1,7 +1,7 @@
 model_name: vae
 name: ${model_name}_${dataset_variant}
-out_dir: ${msd_out_root}/models/${name}
-checkpoint_dir: ${msd_out_root}/models/${model_name}_dsprites_static
+out_dir: ${msd_root}/models/${name}
+checkpoint_dir: ${msd_root}/models/${model_name}_dsprites_static
 device: cuda
 load_model: best
 dataset: configurations/datasets/vlm_annotated/ufs_dsprites_static.yaml
@@ -14,7 +14,7 @@ latent_explorer_cfg:
   parameters:
     batch_exploration: false
 model:
-  name: AE
+  name: VAE
   parameters:
     in_channels: 3
     latent_dim: 256
@@ -30,7 +30,7 @@ model:
     beta: 1
     sparsity_weight: 0
 trainer:
-  name: AE_Trainer
+  name: VAE_Trainer
   parameters: {}
   optimizer:
     name: Adam

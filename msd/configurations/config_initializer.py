@@ -26,7 +26,6 @@ class ConfigInitializer:
         """
         self.registry = ClassRegistry(package_root=".")
         self.registry.scan_and_register()
-        print(1)
         self.config: DictConfig = config
         self.objects: Dict[str, Any] = {}
         self.logger: CompositeLogger = self.get_logger()

@@ -1,7 +1,7 @@
 dataset_name: dsprites
 dataset_variant: dsprites_dynamic
 data_type: 'Video'
-classifier_path: "${msd_out_root}/judge_classifiers/${dataset_variant}_classifier/${dataset_variant}_classifier_best.pth"
+classifier_path: "${msd_root}/judge_classifiers/${dataset_variant}_classifier/${dataset_variant}_classifier_best.pth"
 dataset:
   dataset:
     name: DisentanglementDataset
