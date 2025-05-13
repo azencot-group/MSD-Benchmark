@@ -125,7 +125,7 @@ class StaticFactor(Factor):
     def values_map(self):
         if self.static_factor is not None:
             label2value = self.static_factor._label2value
-            return {label2value[v]: v for v in self.values}
+            return {label2value[v]: self._value2label[v] for v in self.values}
         else:
             return self._value2label
 

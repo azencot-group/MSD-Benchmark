@@ -22,7 +22,7 @@ class Hdf5Reader(AbstractReader):
         classes = json.loads(classes_json)
         super().__init__(classes, split)
 
-        self.data = self.h5_file['data'] # NxTx(D) , (D) = CxHxW for video
+        self.data = self.h5_file['data'] # Nx(D) , (D) = CxHxW for video
         self.labels = self.h5_file['labels'] # NxL
         self.indices = self.h5_file[f'{split}_indices'][:] # N(split)
 

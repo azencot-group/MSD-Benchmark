@@ -25,7 +25,7 @@ class dSpritesColored(StateMapper):
         self.metadata = data['metadata'][()]
         self.rgb_colors = {name: mcolors.to_rgb(name) for name in color_names}
         factor_names = self.metadata['latents_names']
-        factor_values = {k: v for k, v in self.metadata['latents_possible_values'].items()} | {'color': color_names, 'shape': ['square', 'ellipse', 'heart']}
+        factor_values = {k: v.round(5) for k, v in self.metadata['latents_possible_values'].items()} | {'color': color_names, 'shape': ['square', 'ellipse', 'heart']}
         factors = [StaticFactor(n, factor_values[n]) for n in factor_names]
         images = data['imgs']
         labels = data['latents_classes']

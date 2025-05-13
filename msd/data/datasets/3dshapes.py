@@ -16,7 +16,7 @@ class Shapes3D(StateMapper):
         """
         with h5py.File(dataset_file, 'r') as dataset:
             images = np.array(dataset['images']).transpose((0, 3, 1, 2))  # (N, C, H, W)
-            values = np.array(dataset['labels']).round(3)
+            values = np.array(dataset['labels']).round(5)
         factor_names = ['floor_hue', 'wall_hue', 'object_hue', 'scale', 'shape', 'orientation']
         factor_values = {k: sorted(np.unique(values[:, i])) for i, k in enumerate(factor_names)} | {'shape': ['cube', 'cylinder', 'sphere', 'capsule']}
         factors = [StaticFactor(n, factor_values[n]) for n in factor_names]
@@ -65,5 +65,7 @@ class Dynamic3DShapes(VideoGenerator):
 if __name__ == '__main__':
     static_dataset_file = '/path/to/3dshapes.h5'
     output_file = '/path/to/3dshapes_dataset.h5'
+
+
     dynamic3D_shapes = Dynamic3DShapes(static_dataset_file)
     dynamic3D_shapes.create_dataset(out_path=output_file)
