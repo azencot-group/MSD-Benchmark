@@ -5,8 +5,8 @@ import numpy as np
 from msd.data.readers.h5_reader import Hdf5Reader
 from msd.data.disentanglement_dataset import DisentanglementDataset
 from msd.evaluations.vlm.auto_annotator import AutoAnnotator
-from msd.evaluations.vlm.backbone.gpt_judge import OpenAIGPTBackbone
-from msd.evaluations.vlm.setups.vlm_preprocessor import DynamicVLMPreprocessor
+from msd.evaluations.vlm.backbone.openai_backbone import OpenAIGPTBackbone
+from msd.evaluations.vlm.prompt_setups.vlm_preprocessor import DynamicVLMPreprocessor
 
 if __name__ == '__main__':
     parser = ArgumentParser()

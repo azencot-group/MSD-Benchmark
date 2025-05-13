@@ -6,7 +6,7 @@ This document outlines:
 - The structure of the `AbstractModel` and `AbstractTrainer`
 - Requirements for new methods
 
-For configuration and initialization details, see [docs/configuration.md](docs/configuration.md).
+For configuration and initialization details, see [docs/configuration.md](configuration.md).
 
 ---
 
@@ -51,8 +51,27 @@ The class handles resuming from checkpoints and saving relevant metadata (`class
 
 ---
 
+## Adding a New Method
+
+To add a new method to MSD:
+1. Create a model class that inherits from `AbstractModel`.
+2. Create a trainer class that inherits from `AbstractTrainer`.
+3. Optionally, implement a custom `LatentExplorer` if your model provides structure in the latent space (e.g., explicit static/dynamic separation).
+4. Define a configuration file that includes the model, trainer, training parameters, and evaluation setup.
+5. Reference your classes and configuration paths in the main YAML config file.
+
+---
+
+## Latent Explorer (Optional)
+
+If your model provides architectural insights into its latent space (e.g., an explicit static/dynamic separation), you can define a custom `LatentExplorer` to leverage this knowledge during evaluation.
+
+Refer to [docs/latent_exploration.md](latent_exploration.md) for implementation guidance and integration examples.
+
+---
+
 ## Summary
 
 The MSD benchmark separates modeling, training, and evaluation into pluggable modules. By adhering to the `AbstractModel` and `AbstractTrainer` interfaces, you can integrate new learning methods with minimal friction.
 
-To see a working example, check the included methods directory. For experiment setup and configuration, refer to [docs/configuration.md](docs/configuration.md).
+To see a working example, check the included methods directory. For experiment setup and configuration, refer to [docs/configuration.md](configuration.md).
