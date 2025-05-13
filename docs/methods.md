@@ -15,10 +15,10 @@ For configuration and initialization details, see [docs/configuration.md](config
 All models in MSD must inherit from `AbstractModel`, which itself extends `torch.nn.Module`. It defines a consistent API for encoding, decoding, sampling, and manipulating latent spaces.
 
 ### Required Methods
-- `encode(x: Tensor) -> Tensor`: Encode raw input to latent space.
+- `encode(x: Tensor) -> Tensor`: Encode raw input to latent space (does not require a flat vector representation).
 - `decode(z: Tensor) -> Tensor`: Reconstruct input from latent space.
 - `latent_dim() -> int`: Report the dimensionality of the latent space.
-- `latent_vector(x: Tensor) -> Tensor`: Extract latent representations as a single vector.
+- `latent_vector(x: Tensor) -> Tensor`: Extract latent representations as a single vector (flat vector).
 - `sample(z: int) -> Tensor`: Generate synthetic samples from latent codes.
 - `swap_channels(z1, z2, C) -> Tensor`: Perform channel-level factor swapping.
 - `forward(x: Tensor) -> Tensor`: Define the forward pass.
