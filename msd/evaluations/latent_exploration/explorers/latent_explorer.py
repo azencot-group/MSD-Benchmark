@@ -74,13 +74,8 @@ class LatentExplorer(ABC, MSDComponent):
         else:
             data_loader = self.data_loader
 
-        if not self.evaluation_manager.testing:
-            if epoch not in self.mapping_train or self.batch_exploration:
-                self.mapping_train[epoch] = self.eval(epoch, data_loader)
-            _, mapping = self.mapping_train[epoch]
-        else:
-            if epoch not in self.mapping_test or self.batch_exploration:
-                self.mapping_test[epoch] = self.eval(epoch, data_loader)
-            _, mapping = self.mapping_test[epoch]
-
+        cache = self.mapping_test if self.evaluation_manager.testing else self.mapping_train
+        if epoch not in cache or self.batch_exploration:
+            cache[epoch] = self.eval(epoch, data_loader)
+        _, mapping = cache[epoch]
         return dict(mapping)

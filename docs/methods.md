@@ -38,6 +38,7 @@ The `AbstractTrainer` class defines the training lifecycle and is responsible fo
 
 ### Required Method
 - `train_step(epoch: int) -> dict`: A single epoch of model updates.
+- Optional: The constructor may set up additional training-specific components like loss functions.
 
 ### Lifecycle
 1. Initialize model and data

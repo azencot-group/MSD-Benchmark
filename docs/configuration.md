@@ -53,6 +53,8 @@ Each dataset (e.g., `sprites`, `shapes3d`) has its own configuration specifying:
 - Preprocessing hooks
 - Train/val/test data loaders
 
+For a full overview of dataset readers, formats, and supported preprocessing hooks, refer to [docs/datasets.md](docs/datasets.md).
+
 **Example: `sprites.yaml`**
 ```yaml
 dataset_name: sprites
@@ -162,6 +164,10 @@ Each method and dataset pair gets its own configuration. These files specify:
 - Model architecture and latent explorer config
 - Trainer class and loss weights
 - Paths to datasets and evaluation configs
+
+For model integration details and implementation guidance, see [docs/methods.md](docs/methods.md).
+
+See also [docs/latent_exploration.md](docs/latent_exploration.md) for details on latent explorer configuration.
 
 **Example: `ssm_skd_sprites.yaml`**
 ```yaml
