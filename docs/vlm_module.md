@@ -51,19 +51,20 @@ python auto_annotate.py   --ds_path /path/to/dataset.h5   --subset train   --n_e
 
 This process produces an HDF5 dataset with labeled samples and a `*_classes.json` file describing the discovered factor space.
 
-### DatasetExplorer
-
-The `AutoAnnotator` and `DatasetExplorer` classes enable zero- or few-shot labeling of synthetic and real-world video datasets.
-
-### DatasetExplorer
-- Discovers varying visual features by comparing video pairs
-- Groups similar features into canonical factor names
-- Classifies factors as static or dynamic
-- Estimates the label space for each factor
+### Automatic Annotation
 
 ![VLM Feature Exploration](../figures/vlm_feature_exploration.png)
 
 ![VLM Label Exploration](../figures/vlm_label_exploration.png)
+
+The `AutoAnnotator` and `DatasetExplorer` classes enable zero- or few-shot labeling of synthetic and real-world video datasets.
+
+### DatasetExplorer
+
+- Discovers varying visual features by comparing video pairs
+- Groups similar features into canonical factor names
+- Classifies factors as static or dynamic
+- Estimates the label space for each factor
 
 ### AutoAnnotator
 - Runs the full dataset exploration pipeline
