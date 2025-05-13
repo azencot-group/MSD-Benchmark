@@ -8,6 +8,8 @@ This document describes:
 - Available implementations in MSD
 - How to configure or extend the module
 
+![Latent Exploration](figures/latent_explorer.png)
+
 ---
 
 ## Purpose of Latent Exploration
@@ -15,7 +17,6 @@ This document describes:
 Latent exploration methods aim to interpret and analyze the latent space of trained models. These methods seek to:
 
 - Identify latent dimensions that correspond to semantic factors
-- Assess factor-wise disentanglement and interpretability
 - Quantify alignment between ground-truth attributes and learned representations
 
 This is particularly important in MSD, where both **static** and **dynamic** factors govern the data.
@@ -26,9 +27,10 @@ This is particularly important in MSD, where both **static** and **dynamic** fac
 
 The `LatentExplorer` is an abstract base class responsible for computing factor-to-latent mappings, based on a trained model and labeled dataset. It supports:
 
-- Caching of results during training/testing
-- Per-batch exploration mode for models that require real-time latent evaluation (e.g., SKD and SSM-SKD)
-- Torch-based integration with models and evaluation pipeline
+- **Supervised evaluation:** Assumes that the dataloader provides both inputs and corresponding ground-truth factor labels.
+- **Caching of results** during training/testing
+- **Per-batch exploration mode** for models that require real-time latent evaluation (e.g., SKD and SSM-SKD)
+- **Torch-based integration** with models and evaluation pipeline
 
 Each `LatentExplorer` must implement the method:
 

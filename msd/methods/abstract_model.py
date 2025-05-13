@@ -62,7 +62,7 @@ class AbstractModel(ABC, nn.Module, MSDComponent):
 
 
     @abstractmethod
-    def sample(self, Z: int) -> torch.Tensor:
+    def sample(self, Z: torch.Tensor) -> torch.Tensor:
         """
         Sample from the latent manifold.
 

@@ -19,7 +19,7 @@ All models in MSD must inherit from `AbstractModel`, which itself extends `torch
 - `decode(z: Tensor) -> Tensor`: Reconstruct input from latent space.
 - `latent_dim() -> int`: Report the dimensionality of the latent space.
 - `latent_vector(x: Tensor) -> Tensor`: Extract latent representations as a single vector (flat vector).
-- `sample(z: int) -> Tensor`: Generate synthetic samples from latent codes.
+- `sample(z: Tensor) -> Tensor`: Generate synthetic samples from latent codes.
 - `swap_channels(z1, z2, C) -> Tensor`: Perform channel-level factor swapping.
 - `forward(x: Tensor) -> Tensor`: Define the forward pass.
 

@@ -1,8 +1,8 @@
 # MSD Benchmark: Multi-Factor Sequential Disentanglement
 
-![Overview](figures/benchmark_overview.png)
-
 MSD is a benchmark for evaluating disentangled representation learning on **sequential data** (e.g., videos, audio, time-series). It supports datasets with both static and dynamic factors, and includes tools for automatic annotation, model evaluation, and visualization.
+
+![Overview](figures/benchmark_overview.png)
 
 ---
 
@@ -38,13 +38,13 @@ All training and evaluation is handled by the `run.py` script.
 ### Train a model:
 
 ```bash
-python run.py --run_config configurations/methods/ssm_skd_sprites.yaml --train
+python run.py --run_config configurations/methods/ssm_skd/ssm_skd_sprites.yaml --train
 ```
 
 ### Evaluate a model:
 
 ```bash
-python run.py --run_config configurations/methods/ssm_skd_sprites.yaml --eval
+python run.py --run_config configurations/methods/ssm_skd/ssm_skd_sprites.yaml --eval
 ```
 
 You must also specify a `meta.yaml` file with global variables like `msd_root`. This is optional if your `meta.yaml` is located at `configurations/meta.yaml`.
