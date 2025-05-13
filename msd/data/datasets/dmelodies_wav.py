@@ -82,3 +82,16 @@ def initialize_dmelodies_wav(files_dir, df_path, classes_path, seed=42, test_siz
     )
     return reader
 
+if __name__ == '__main__':
+    # Example usage
+    dmelodies_wav_root = '/path/to/dmelodies_wav'
+    files_info = '/path/to/create/files_info.csv'
+    classes_file = '/path/to/create/classes.json'
+
+    reader = initialize_dmelodies_wav(dmelodies_wav_root, files_info, classes_file)
+
+    # Example of reading audio data
+    for i, x in enumerate(reader):
+        print(f"Audio sample {i}: {x}")
+        if i >= 5:  # Limit to first 5 samples for demonstration
+            break

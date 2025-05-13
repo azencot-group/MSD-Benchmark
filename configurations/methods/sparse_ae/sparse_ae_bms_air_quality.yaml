@@ -1,10 +1,10 @@
-model_name: beta_vae
+model_name: sparse_ae
 name: ${model_name}_${dataset_variant}
 out_dir: ${msd_root}/models/${name}
 checkpoint_dir: ${out_dir}
 device: cuda
 load_model: best
-dataset: configurations/datasets/bmsaq.yaml
+dataset: configurations/datasets/bms_air_quality.yaml
 training_evaluation: configurations/evaluations/timeseries_training_evaluation.yaml
 testing_evaluation: configurations/evaluations/timeseries_testing_evaluation.yaml
 batch_size: 32
@@ -27,8 +27,8 @@ model:
     num_frames: 24
     width: 64
     height: 64
-    beta: 3
-    sparsity_weight: 0
+    beta: 0
+    sparsity_weight: 1
     mode: timeseries
 trainer:
   name: VAE_Trainer

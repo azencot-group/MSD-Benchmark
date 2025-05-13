@@ -1,3 +1,3 @@
-msd_root: <REPLACE_WITH_OUTPUT_DIRECTORY_PATH>
+msd_root: "/path/to/msd/outputs/root"
 # This should be set by the user to specify the root directory where the output files will be saved
 # e.g., "/home/username/projects/msd_outputs"

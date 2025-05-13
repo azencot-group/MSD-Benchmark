@@ -15,6 +15,7 @@ if __name__ == '__main__':
     parser.add_argument('--train', action='store_true', help='Training mode')
     parser.add_argument('--eval', action='store_true', help='Evaluation mode')
     args = parser.parse_args()
+
     if not osp.exists(args.run_config):
         print(f'Config file {args.run_config} not found.')
         exit(1)
@@ -25,8 +26,12 @@ if __name__ == '__main__':
         print('This benchmarks only supports one of training or evaluation at a time. Will execute training.')
         args.eval = False
     meta_config = 'configurations/meta.yaml' if args.meta_config is None else args.meta_config
-    print(f'Current working directory: {os.getcwd()}')
     cfg = load_config(args.run_config, meta_config, args.train)
+    if cfg.msd_root is None or cfg.msd_root in ['', '<REPLACE_WITH_OUTPUT_DIRECTORY_PATH>']:
+        print('Please set the MSD root directory in the meta configuration file.')
+        exit(1)
+
+    print(f'Current working directory: {os.getcwd()}')
     print(f'MSD root directory: {cfg.msd_root}')
     cfg_init = ConfigInitializer(cfg)
     logger = cfg_init.logger
