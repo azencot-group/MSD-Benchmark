@@ -61,6 +61,10 @@ The `AutoAnnotator` and `DatasetExplorer` classes enable zero- or few-shot label
 - Classifies factors as static or dynamic
 - Estimates the label space for each factor
 
+![VLM Feature Exploration](../figures/vlm_feature_exploration.png)
+
+![VLM Label Exploration](../figures/vlm_label_exploration.png)
+
 ### AutoAnnotator
 - Runs the full dataset exploration pipeline
 - Saves the discovered label space and annotations as an HDF5 file with metadata
@@ -69,6 +73,8 @@ The `AutoAnnotator` and `DatasetExplorer` classes enable zero- or few-shot label
 ---
 
 ## VLM as a Judge
+
+![VLM Judge](../figures/vlm_judge.png)
 
 Once label spaces are defined, VLMs can be used as general-purpose **judges** during evaluation.
 
