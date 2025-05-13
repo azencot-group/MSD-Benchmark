@@ -46,10 +46,10 @@ class FactorSpace:
         merged_factors = self.factors + factor_space.factors
         return FactorSpace(merged_factors)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.factors)
 
-    def __getitem__(self, idx: Union[int, str]):
+    def __getitem__(self, idx: Union[int, str]) -> Factor:
         if isinstance(idx, int):
             return self.factors[idx]
         elif isinstance(idx, str):
@@ -58,7 +58,7 @@ class FactorSpace:
             raise TypeError(f"Index must be int or str, not {type(idx)}")
 
 
-    def __or__(self, factor_space):
+    def __or__(self, factor_space) -> 'FactorSpace':
         """
         Merge two FactorSpaces using the | operator.
         :param factor_space: Another FactorSpace to merge with.
@@ -66,7 +66,7 @@ class FactorSpace:
         """
         return self.merge(factor_space)
 
-    def __contains__(self, item):
+    def __contains__(self, item) -> bool:
         """
         Check if a factor is in the FactorSpace.
         :param item: Factor or factor name to check.
@@ -74,5 +74,6 @@ class FactorSpace:
         """
         return item in self.factors or item in self._name2index
 
-    def __repr__(self):
-        return f"FactorSpace({self.factors})"
+    def __repr__(self) -> str:
+        repr = '\n'.join([f.__repr__() for f in self.factors])
+        return f"FactorSpace({repr})"
