@@ -31,14 +31,7 @@ Other VLMs can be supported by implementing the same `VLMBackbone` methods.
 
 ## Automatic Annotation Pipeline
 
-![VLM Annotation Pipeline](../figures/vlm_overview.drawio.pdf)
-<object data="../figures/vlm_overview.drawio.pdf" type="application/pdf" width="700px" height="700px">
-    <embed src="../figures/vlm_overview.drawio.pdf">
-        <p></p>
-    </embed>
-</object>
-
-
+![VLM Annotation Pipeline](../figures/vlm_overview.png)
 
 You can annotate an existing `.h5` dataset using the `auto_annotate.py` script. This script explores the factor structure and labels a subset of sequences using a Vision-Language Model (VLM).
 
