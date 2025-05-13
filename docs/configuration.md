@@ -173,7 +173,7 @@ See also [docs/latent_exploration.md](latent_exploration.md) for details on late
 
 **Example: `ssm_skd_sprites.yaml`**
 ```yaml
-model_name: ssm-skd
+model_name: ssm_skd
 name: ${model_name}_${dataset_variant}
 out_dir: ${msd_root}/models/${name}
 checkpoint_dir: ${out_dir}
