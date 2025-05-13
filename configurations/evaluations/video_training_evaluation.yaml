@@ -21,13 +21,13 @@ evaluation:
   evaluators:
     - name: MultiFactorSample
       parameters: {}
-#    - name: TwoFactorSample
-#      parameters: {}
-#    - name: VideoReconstruction
-#      parameters:
-#        n_samples: 4
-#    - name: LatentSwapVisualizer
-#      parameters: {}
+    - name: TwoFactorSample
+      parameters: {}
+    - name: VideoReconstruction
+      parameters:
+        n_samples: 4
+    - name: LatentSwapVisualizer
+      parameters: {}
 loggers:
   - name: FileLogger
     parameters:

@@ -5,7 +5,6 @@ from torch import nn
 from torch.utils.data import DataLoader
 
 from msd.configurations.class_registry import ClassRegistry
-# from msd.configurations.class_registry import class_of, scan_and_generate_registry
 from msd.data.disentanglement_dataset import DisentanglementDataset
 from msd.evaluations.evaluation_manager import EvaluationManager
 from msd.methods.abstract_model import AbstractModel
