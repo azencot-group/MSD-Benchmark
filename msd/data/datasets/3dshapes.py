@@ -66,6 +66,5 @@ if __name__ == '__main__':
     static_dataset_file = '/path/to/3dshapes.h5'
     output_file = '/path/to/3dshapes_dataset.h5'
 
-
     dynamic3D_shapes = Dynamic3DShapes(static_dataset_file)
     dynamic3D_shapes.create_dataset(out_path=output_file)
