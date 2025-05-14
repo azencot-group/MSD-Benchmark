@@ -171,4 +171,4 @@ if __name__ == '__main__':
     sprites_dir = '/path/to/sprites/'
     out_path = '/path/to/output/sprites.h5'
 
-    generator = SpritesGenerator(sprites_dir, out_path).initialize(42, 0.15, 0.15)
+    SpritesGenerator(sprites_dir, out_path).initialize(42, 0.15, 0.15)
