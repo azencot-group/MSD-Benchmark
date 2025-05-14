@@ -74,8 +74,11 @@ class Normalize(AbstractPreprocessHook):
         return f"{self.__class__.__name__}(min_val={self.min_val}, max_val={self.max_val}, data_min={self.data_min}, data_max={self.data_max})"
 
 class ToNumpy(AbstractPreprocessHook):
+    def __init__(self, dtype: str = 'float32'):
+        super().__init__()
+        self.dtype = np.dtype(dtype)
     """
     Convert the data to a NumPy array.
     """
     def apply(self, data: Any) -> np.ndarray:
-        return np.array(data).squeeze()
+        return np.array(data, dtype=self.dtype).squeeze()

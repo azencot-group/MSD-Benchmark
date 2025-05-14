@@ -226,7 +226,7 @@ trainer:
   epochs:
     start: 1
     end: 500
-  verbose: 10
+  verbose: 5
 ```
 
 ---

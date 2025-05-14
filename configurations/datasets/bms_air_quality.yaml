@@ -11,7 +11,8 @@ dataset:
       repo_id: "TalBarami/msd_${dataset_variant}"
   preprocess_hooks:
     - name: ToNumpy
-      parameters: {}
+      parameters:
+        dtype: float32
   splits:
     train:
       preprocess_hooks: ${dataset.preprocess_hooks}
