@@ -224,7 +224,7 @@ trainer:
       lr: 0.001
   epochs:
     start: 1
-    end: 250
+    end: 500
   verbose: 10
 ```
 
