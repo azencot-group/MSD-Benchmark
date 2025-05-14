@@ -171,7 +171,4 @@ if __name__ == '__main__':
     sprites_dir = '/path/to/sprites/'
     out_path = '/path/to/output/sprites.h5'
 
-    sprites_dir = '/cs/cs_groups/azencot_group/MSD/datasets/sprites'
-    out_path = '/cs/cs_groups/azencot_group/MSD/datasets/sprites/sprites/sprites_dataset.h5'
-
     generator = SpritesGenerator(sprites_dir, out_path).initialize(42, 0.15, 0.15)
