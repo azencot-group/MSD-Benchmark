@@ -60,7 +60,11 @@ For a full overview of dataset readers, formats, and supported preprocessing hoo
 dataset_name: sprites
 dataset_variant: sprites
 data_type: 'Video'
-classifier_path: "${msd_root}/judge_classifiers/${dataset_variant}_classifier/${dataset_variant}_classifier_best.pth"
+classifier_loader_cfg:
+  name: HuggingfaceLoader
+  parameters:
+    repo_id: "TalBarami/msd_judge_classifiers"
+    repo_path: "${dataset_variant}_classifier_best.pth"
 dataset:
   dataset:
     name: DisentanglementDataset
@@ -135,7 +139,7 @@ evaluation:
           classifier_cfg:
             name: ${data_type}Classifier
             parameters: {}
-          checkpoint_path: ${classifier_path}
+          classifier_loader_cfg: ${classifier_loader_cfg}
       predictor_cfg:
         name: GradientBoostingClassifier
         parameters:

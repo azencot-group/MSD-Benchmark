@@ -1,7 +1,11 @@
 dataset_name: sprites
 dataset_variant: sprites
 data_type: 'Video'
-classifier_path: "${msd_root}/judge_classifiers/${dataset_variant}_classifier/${dataset_variant}_classifier_best.pth"
+classifier_loader_cfg:
+  name: HuggingfaceLoader
+  parameters:
+    repo_id: "TalBarami/msd_judge_classifiers"
+    repo_path: "${dataset_variant}_classifier_best.pth"
 dataset:
   dataset:
     name: DisentanglementDataset

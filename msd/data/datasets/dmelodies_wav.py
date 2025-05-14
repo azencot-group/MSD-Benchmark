@@ -25,6 +25,7 @@ class dMelodiesWAVProcess:
             for f in tqdm(os.listdir(osp.join(self.dmw_dir, instrument)), desc=f"Processing Files in {instrument}", leave=False):
                 label = f.split('.')[0].split('_')[1:]
                 df.loc[df.shape[0]] = [f, osp.join(instrument, f)] + [instrument] + label
+        df[['octave', 'rhythm_bar1']] = df[['octave', 'rhythm_bar1']].astype(int)
         df['idx'] = df['filename'].apply(lambda f: f.split('_')[0]).astype(int)
         df.sort_values(by=['instrument', 'idx']).reset_index(drop=True)
 

@@ -1,4 +1,3 @@
-
 from abc import abstractmethod
 from typing import TYPE_CHECKING
 
@@ -30,15 +29,15 @@ class ClassifierJudge(nn.Module, Judge):
     Typically used in fully supervised setups with model checkpoints.
     """
 
-    def __init__(self, initializer: 'ConfigInitializer', classifier_cfg: DictConfig, checkpoint_path: str):
+    def __init__(self, initializer: 'ConfigInitializer', classifier_cfg: DictConfig, classifier_loader_cfg: DictConfig):
         """
         :param initializer: ConfigInitializer used to build the classifier module.
         :param classifier_cfg: Configuration used to construct the classifier.
-        :param checkpoint_path: Path to a `.pth` file containing model weights and metadata.
+        :param classifier_loader_cfg: Configuration used to construct the classifier loader.
         """
         super(ClassifierJudge, self).__init__()
-        self.checkpoint_path = checkpoint_path
-        self.checkpoint = torch.load(self.checkpoint_path, weights_only=False)
+        self.loader = initializer.initialize(classifier_loader_cfg)
+        self.checkpoint = self.loader.load_classifier()
         args = self.checkpoint['arguments']
         args['classes'] = self.checkpoint['classes']
         self.classifier = initializer.initialize(classifier_cfg, **args)

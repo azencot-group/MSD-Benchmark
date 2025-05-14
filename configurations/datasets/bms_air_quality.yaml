@@ -1,7 +1,10 @@
 dataset_name: bms_air_quality
 dataset_variant: bms_air_quality
 data_type: 'TimeSeries'
-classifier_path: "${msd_root}/judge_classifiers/${dataset_variant}_classifier/${dataset_variant}_classifier_best.pth"
+classifier_loader_cfg:
+  name: ClassifierLoader
+  parameters:
+    checkpoint_path: "${msd_root}/judge_classifiers/${dataset_variant}_classifier/${dataset_variant}_classifier_best.pth"
 dataset:
   dataset:
     name: DisentanglementDataset

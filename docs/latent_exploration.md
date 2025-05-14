@@ -8,7 +8,7 @@ This document describes:
 - Available implementations in MSD
 - How to configure or extend the module
 
-![Latent Exploration](figures/latent_explorer.png)
+![Latent Exploration](../figures/latent_explorer.png)
 
 ---
 

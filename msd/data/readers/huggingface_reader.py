@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 from os import path as osp
 from typing import Union, List, Dict, Tuple, Optional
@@ -27,6 +28,7 @@ class HuggingFaceReader(AbstractReader):
         classes_path = hf_hub_download(repo_id=self.repo_id, filename="classes.json", repo_type="dataset", token=token)
         with open(classes_path, 'r') as f:
             classes = json.load(f)
+        os.remove(classes_path)
         super().__init__(classes, split)
 
         self._dataset = load_dataset(self.repo_id, token=token)

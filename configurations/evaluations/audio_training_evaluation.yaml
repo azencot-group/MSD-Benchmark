@@ -12,7 +12,7 @@ evaluation:
           classifier_cfg:
             name: ${data_type}Classifier
             parameters: {}
-          checkpoint_path: ${classifier_path}
+          classifier_loader_cfg: ${classifier_loader_cfg}
       predictor_cfg:
         name: GradientBoostingClassifier
         parameters:
