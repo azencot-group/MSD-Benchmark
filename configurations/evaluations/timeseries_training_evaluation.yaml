@@ -6,13 +6,6 @@ evaluation:
       main: 0
       repeat: 1
       dataset_type: val
-      judge_cfg:
-        name: ClassifierJudge
-        parameters:
-          classifier_cfg:
-            name: ${data_type}Classifier
-            parameters: {}
-          classifier_loader_cfg: ${classifier_loader_cfg}
       predictor_cfg:
         name: GradientBoostingClassifier
         parameters:

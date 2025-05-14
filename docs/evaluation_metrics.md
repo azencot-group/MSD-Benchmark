@@ -87,6 +87,17 @@ evaluation:
       parameters: { }
 ```
 
+### Judge Evaluators
+
+Several evaluators in MSD rely on a **judge module** to assess correctness of factor predictions after latent manipulations. This includes:
+
+- **Intervention-based evaluators** (e.g., MultiFactorSample, TwoFactorSample): use the judge to classify modified sequences and compare against expected factor changes.
+- **Consistency evaluators**: rely on judge outputs to verify temporal and representational stability of static factor predictions.
+
+Judges can be:
+- A classifier trained specifically for the dataset (loaded via `classifier_loader_cfg`)
+- A VLM-based judge using a pre-defined closed label set and (optionally) few-shot prompts
+
 See [docs/configuration.md](configuration.md) for full usage examples.
 
 ---

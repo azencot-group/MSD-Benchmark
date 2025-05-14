@@ -51,7 +51,7 @@ trainer:
   optimizer:
     name: Adam
     parameters:
-      lr: 0.001
+      lr: 0.0001
   epochs:
     start: 1
     end: 500

@@ -1,10 +1,6 @@
 dataset_name: bms_air_quality
 dataset_variant: bms_air_quality
 data_type: 'TimeSeries'
-classifier_loader_cfg:
-  name: ClassifierLoader
-  parameters:
-    checkpoint_path: "${msd_root}/judge_classifiers/${dataset_variant}_classifier/${dataset_variant}_classifier_best.pth"
 dataset:
   dataset:
     name: DisentanglementDataset
@@ -16,10 +12,6 @@ dataset:
   preprocess_hooks:
     - name: ToNumpy
       parameters: {}
-    - name: Normalize
-      parameters:
-        data_min: 0
-        data_max: 2**15
   splits:
     train:
       preprocess_hooks: ${dataset.preprocess_hooks}

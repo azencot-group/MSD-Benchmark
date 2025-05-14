@@ -52,6 +52,7 @@ Each dataset (e.g., `sprites`, `shapes3d`) has its own configuration specifying:
 - Reader class (e.g., `Hdf5Reader`, `HuggingFaceReader`)
 - Preprocessing hooks
 - Train/val/test data loaders
+- Optional classifier loading (`classifier_loader_cfg`) for judge evaluation modules
 
 For a full overview of dataset readers, formats, and supported preprocessing hooks, refer to [docs/datasets.md](datasets.md).
 
