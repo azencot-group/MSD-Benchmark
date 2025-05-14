@@ -59,7 +59,7 @@ class Dynamic3DShapes(VideoGenerator):
                 'clockwise': CyclicSequence(np.roll(np.arange(0, nOrient, 2)[::-1], 1)),
             })
         ])
-        super().__init__(state_mapper=ds, static_factors=static_factors, dynamic_factors=dynamic_factors, T=16)
+        super().__init__(state_mapper=ds, static_factors=static_factors, dynamic_factors=dynamic_factors, T=10)
 
 
 if __name__ == '__main__':
