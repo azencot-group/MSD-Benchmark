@@ -28,7 +28,6 @@ class HuggingFaceReader(AbstractReader):
         classes_path = hf_hub_download(repo_id=self.repo_id, filename="classes.json", repo_type="dataset", token=token)
         with open(classes_path, 'r') as f:
             classes = json.load(f)
-        os.remove(classes_path)
         super().__init__(classes, split)
 
         self._dataset = load_dataset(self.repo_id, token=token)
@@ -49,9 +48,13 @@ class HuggingFaceReader(AbstractReader):
         if isinstance(index, int):
             index = [index]
         data = self.dataset[index]
+        x = data['x']
+        if len(x) == 1 and type(x[0]) is dict: # dtype is audio
+            x = x[0]['array']
+            x = np.pad(x, (0, 48000 - x.shape[0]), 'constant')
         static_factors = {k: np.array(data[k]).squeeze() for k in self.static_factors}
         dynamic_factors = {k: np.array(data[k]).squeeze() for k in self.dynamic_factors}
-        return data['x'], static_factors, dynamic_factors
+        return x, static_factors, dynamic_factors
 
     def __repr__(self) -> str:
         """

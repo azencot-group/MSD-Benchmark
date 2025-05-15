@@ -4,7 +4,7 @@ out_dir: ${msd_root}/models/${name}
 checkpoint_dir: ${out_dir}
 device: cuda
 load_model: best
-dataset: configurations/datasets/bmsaq.yaml
+dataset: configurations/datasets/bms_air_quality.yaml
 training_evaluation: configurations/evaluations/timeseries_training_evaluation.yaml
 testing_evaluation: configurations/evaluations/timeseries_testing_evaluation.yaml
 batch_size: 32

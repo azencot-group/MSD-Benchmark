@@ -62,7 +62,7 @@ class Normalize(AbstractPreprocessHook):
         self.min_val = min_val
         self.max_val = max_val
         self.data_min = data_min
-        self.data_max = data_max
+        self.data_max = eval(data_max) if type(data_max) is str else data_max
 
     def apply(self, data: np.ndarray) -> np.ndarray:
         data = data.astype(np.float32)
