@@ -4,7 +4,7 @@ from typing import Iterable, Dict, List, Union, Optional
 
 from openai import OpenAI
 
-from msd.evaluations.vlm.backbone.vlm_backbone import VLMBackbone, extract_json
+from msd.evaluations.vlm.backbone.vlm_backbone import VLMBackbone
 
 
 class OpenAIGPTBackbone(VLMBackbone):
@@ -42,7 +42,7 @@ class OpenAIGPTBackbone(VLMBackbone):
             )
             output_text = response.choices[0].message.content
             # structured_output = json.loads(output_text)
-            structured_output = extract_json(output_text)
+            structured_output = self.extract_json(output_text)
 
             return structured_output
         except Exception as e:
