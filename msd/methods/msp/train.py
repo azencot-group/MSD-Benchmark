@@ -36,10 +36,11 @@ class MspTrainer(AbstractTrainer):
     def train_step(self, epoch):
         self.model.train()
 
+        batches = 0
         losses = {'loss': 0, 'loss_bd': 0, 'loss_orth': 0}
 
         for X in self.train_loader:
-            # X_ = torch.stack(X).transpose(1, 0).to(self.device)
+            batches += 1
             _X = X.transpose(1, 0).to(self.device)
             loss, (loss_bd, loss_orth, _) = self.model.loss(
                 _X, T_cond=self.T_cond, return_reg_loss=True, reconst=False)
@@ -52,4 +53,4 @@ class MspTrainer(AbstractTrainer):
                 'loss_orth': losses['loss_orth'] + loss_orth.item()
             }
 
-        return losses
+        return {k: v / batches for k, v in losses.items()}
