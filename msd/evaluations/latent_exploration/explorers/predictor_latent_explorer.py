@@ -52,7 +52,8 @@ class PredictorLatentExplorer(LatentExplorer):
         factors = list(self.dataset.classes.keys())
         Z, Y = [], []
         for X, Ys, Yd in data_loader:
-            X, _Y = self.model.preprocess(X).to(self.device), Ys | Yd
+            X = X.to(self.device)
+            X, _Y = self.model.preprocess(X), Ys | Yd
             with torch.no_grad():
                 Z.append(self.model.latent_vector(X).detach().cpu().numpy())
             Y.append(_Y)

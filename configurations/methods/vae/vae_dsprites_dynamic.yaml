@@ -1,8 +1,8 @@
 model_name: vae
 name: ${model_name}_${dataset_variant}
 out_dir: ${msd_root}/models/${name}
-device: cuda
 checkpoint_dir: ${out_dir}
+device: cuda
 load_model: best
 dataset: configurations/datasets/dsprites_dynamic.yaml
 training_evaluation: configurations/evaluations/video_training_evaluation.yaml

@@ -1,89 +1,59 @@
+import numpy as np
 import torch
-import tensorflow as tf
-import tensorflow_hub as hub
+import torchaudio
+import torchaudio.transforms as T
+import torchaudio.functional as F
+from torch import nn
+from vocos import Vocos
 
-class MelSpecEncoder:
+class MelSpecEncoder(nn.Module):
     """
-    Utility class for encoding and decoding audio using a Mel-spectrogram representation.
+    PyTorch equivalent of the MelSpecEncoder using torchaudio.
 
-    This encoder is specifically configured for compatibility with the SoundStream
-    mel decoder model from TensorFlow Hub.
+    The inverse mel decoder (e.g., SoundStream) is not available in PyTorch and is left as a placeholder.
     """
 
     def __init__(self):
-        """
-        Initialize Mel-spectrogram parameters and load the inverse mel decoder model.
-        """
-        self.SAMPLE_RATE = 16000
-        self.N_FFT = 1024
-        self.HOP_LENGTH = 320
-        self.WIN_LENGTH = 640
-        self.N_MEL_CHANNELS = 128
-        self.MEL_FMIN = 0.0
-        self.MEL_FMAX = int(self.SAMPLE_RATE // 2)
-        self.CLIP_VALUE_MIN = 1e-5
-        self.CLIP_VALUE_MAX = 1e8
-
-        # Mel filterbank matrix
-        self.MEL_BASIS = tf.signal.linear_to_mel_weight_matrix(
-            num_mel_bins=self.N_MEL_CHANNELS,
-            num_spectrogram_bins=self.N_FFT // 2 + 1,
-            sample_rate=self.SAMPLE_RATE,
-            lower_edge_hertz=self.MEL_FMIN,
-            upper_edge_hertz=self.MEL_FMAX)
-
-        # Pretrained inverse mel decoder (SoundStream)
-        self.inv_mel = hub.KerasLayer('https://www.kaggle.com/models/google/soundstream/frameworks/TensorFlow2/variations/mel-decoder-music/versions/1')
-
-    def calc_melspec(self, x: tf.Tensor) -> tf.Tensor:
-        """
-        Calculate log-Mel spectrogram from waveform.
-
-        :param x: Tensor of shape [B, T] with float32 values in range [-1, 1].
-        :return: Tensor of shape [B, Time, Mels] normalized to [0, 1].
-        """
-        fft = tf.signal.stft(
-            x,
-            frame_length=self.WIN_LENGTH,
-            frame_step=self.HOP_LENGTH,
-            fft_length=self.N_FFT,
-            window_fn=tf.signal.hann_window,
-            pad_end=True)
-        fft_modulus = tf.abs(fft)
-
-        output = tf.matmul(fft_modulus, self.MEL_BASIS)
-
-        output = tf.clip_by_value(
-            output,
-            clip_value_min=self.CLIP_VALUE_MIN,
-            clip_value_max=self.CLIP_VALUE_MAX)
-        output = tf.math.log(output)
-        output = output / tf.math.log(self.CLIP_VALUE_MAX)
-        return output
+        super().__init__()
+        self.orig_sr = 16000
+        self.target_sr = 24000
+        self.max_value = 1e8
+        self.resampler = torchaudio.transforms.Resample(orig_freq=self.orig_sr, new_freq=self.target_sr)
+        self.mel_transform = T.MelSpectrogram(
+        sample_rate=self.target_sr,
+        n_fft=1024,
+        hop_length=256,
+        n_mels=100,
+        win_length=1024,
+        f_min=40.0,
+        f_max=12000.0,
+        mel_scale="htk",  # matches original config
+        power=1.0,  # Vocos expects magnitude
+        norm=None,
+    )
+        self.vocos = Vocos.from_pretrained("charactr/vocos-mel-24khz")
 
     def encode(self, x: torch.Tensor) -> torch.Tensor:
         """
-        Convert raw audio waveform (PyTorch) into a log-Mel spectrogram (PyTorch).
+        Convert raw audio waveform into a log-Mel spectrogram.
 
-        :param x: Input waveform tensor of shape [B, T] on any device.
-        :return: Log-mel spectrogram tensor of shape [B, Mels, Time] on the same device.
+        :param x: Tensor of shape [B, T] with float32 values in range [-1, 1].
+        :return: Log-mel spectrogram tensor of shape [B, Mels, Time], normalized to [0, 1].
         """
-        device = x.device
-        arr_tensor = tf.convert_to_tensor(x.detach().cpu().numpy())
-        spectrogram = self.calc_melspec(arr_tensor).numpy()
-        return torch.from_numpy(spectrogram).permute(0, 2, 1).to(device)
+        x_resampled = self.resampler(x)
+        mel = self.mel_transform(x_resampled)
+        mel = torch.clamp(mel, min=1e-5)
+        mel = torch.log(mel) / np.log(self.max_value)
+        return mel
 
     def decode(self, x: torch.Tensor) -> torch.Tensor:
         """
         Reconstruct waveform from log-Mel spectrogram using the inverse model.
 
-        :param x: Log-mel spectrogram tensor of shape [B, Mels, Time] on any device.
-        :return: Reconstructed waveform tensor of shape [B, T] on the same device.
+        :param x: Log-mel spectrogram tensor of shape [B, Mels, Time], normalized to [0, 1].
+        :return: Reconstructed waveform tensor of shape [B, T].
         """
-        device = x.device
-        spectrogram = tf.convert_to_tensor(x.detach().cpu().numpy().transpose(0, 2, 1))
-        spectrogram = spectrogram * tf.math.log(self.CLIP_VALUE_MAX)
-        with tf.device('/cpu:0'):
-            wav = self.inv_mel(spectrogram).numpy()
-        wav = torch.from_numpy(wav).to(device)
-        return wav
+        x = x * np.log(self.max_value)
+        y_hat = self.vocos.decode(x)
+        denoised = F.gain(y_hat, gain_db=-1.0)
+        return denoised
