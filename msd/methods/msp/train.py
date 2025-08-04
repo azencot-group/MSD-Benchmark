@@ -41,7 +41,7 @@ class MspTrainer(AbstractTrainer):
 
         for X in self.train_loader:
             batches += 1
-            _X = X.transpose(1, 0).to(self.device)
+            _X = X.to(self.device)
             loss, (loss_bd, loss_orth, _) = self.model.loss(
                 _X, T_cond=self.T_cond, return_reg_loss=True, reconst=False)
             self.optimizer.zero_grad()
