@@ -12,27 +12,6 @@ class MspTrainer(AbstractTrainer):
     def train(self) -> None:
         super().train()
 
-        self.model = self.init_model()
-        checkpoint = torch.load(self.model_path.replace('.pth', f'_best.pth'), weights_only=False)
-        self.model.load_state_dict(checkpoint['model'])
-
-        Ms = []
-        count = 0
-        with torch.no_grad():
-            for images in self.train_loader:
-                images = torch.stack(images).transpose(1, 0)
-                images = images.to(self.device)
-                Ms.append(self.model.get_M(images).detach())
-                count += 1
-                if count > 100:
-                    break
-        self.model.Ms = torch.cat(Ms, dim=0)
-        self.model.CofB = optimize_bd_cob(Ms, n_epochs=50)
-        self.model.change_of_basis = torch.nn.Parameter(self.model.CofB.U)
-
-        checkpoint['model'] = self.model.state_dict()
-        torch.save(checkpoint, self.model_path.replace('.pth', f'_best.pth'))
-
     def train_step(self, epoch):
         self.model.train()
 
@@ -52,5 +31,19 @@ class MspTrainer(AbstractTrainer):
                 'loss_bd': losses['loss_bd'] + loss_bd.item(),
                 'loss_orth': losses['loss_orth'] + loss_orth.item()
             }
+
+        if epoch % self.verbose == 0:
+            Ms = []
+            count = 0
+            with torch.no_grad():
+                for images in self.train_loader:
+                    images = images.to(self.device)
+                    Ms.append(self.model.get_M(images).detach())
+                    count += 1
+                    if count > 100:
+                        break
+            self.model.Ms = torch.cat(Ms, dim=0)
+            self.model.CofB = optimize_bd_cob(Ms, self.logger, n_epochs=50)
+            self.model.change_of_basis = torch.nn.Parameter(self.model.CofB.U)
 
         return {k: v / batches for k, v in losses.items()}

@@ -28,7 +28,7 @@ def tracenorm_of_normalized_laplacian(A):
     return torch.sum(sigmas, dim=-1)
 
 
-def optimize_bd_cob(mats, batchsize=32, n_epochs=50, epochs_monitor=10):
+def optimize_bd_cob(mats, logger, batchsize=32, n_epochs=50, epochs_monitor=10):
     # Optimize change of basis matrix U by minimizing block diagonalization loss
 
     class ChangeOfBasis(torch.nn.Module):
@@ -59,5 +59,5 @@ def optimize_bd_cob(mats, batchsize=32, n_epochs=50, epochs_monitor=10):
             total_loss += loss.item() * mat.shape[0]
             total_N += mat.shape[0]
         if ((ep + 1) % epochs_monitor) == 0:
-            print('ep:{} loss:{}'.format(ep, total_loss / total_N))
+            logger.log('train/loss/loss_bd_cob', total_loss / total_N)
     return change_of_basis
