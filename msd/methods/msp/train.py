@@ -43,7 +43,7 @@ class MspTrainer(AbstractTrainer):
                     if count > 100:
                         break
             self.model.Ms = torch.cat(Ms, dim=0)
-            self.model.CofB = optimize_bd_cob(Ms, self.logger, n_epochs=50)
+            self.model.CofB = optimize_bd_cob(self.model.Ms, self.logger, n_epochs=50)
             self.model.change_of_basis = torch.nn.Parameter(self.model.CofB.U)
 
         return {k: v / batches for k, v in losses.items()}
