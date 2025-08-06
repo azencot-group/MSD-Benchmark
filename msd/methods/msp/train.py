@@ -13,6 +13,9 @@ class MspTrainer(AbstractTrainer):
         super().train()
 
     def train_step(self, epoch):
+        if hasattr(self.model, 'change_of_basis'):
+            delattr(self.model, 'change_of_basis')
+
         self.model.train()
 
         batches = 0

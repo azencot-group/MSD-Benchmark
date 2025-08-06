@@ -38,7 +38,7 @@ trainer:
       lr: 0.0003
   epochs:
     start: 1
-    end: 100
+    end: 50
   verbose: 5
 loggers:
   - name: NeptuneLogger
