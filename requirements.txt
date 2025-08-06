@@ -17,7 +17,5 @@ imageio
 openai
 pytorch-pfn-extras
 einops
-# for audio: conda install torch cuda=11.8, then:
-#tensorflow-gpu
-#torchaudio
-#music21
+torchaudio
+vocos
