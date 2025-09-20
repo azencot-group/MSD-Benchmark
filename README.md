@@ -1,6 +1,6 @@
 # MSD Benchmark: Multi-Factor Sequential Disentanglement
 
-MSD is a benchmark for evaluating disentangled representation learning on **sequential data** (e.g., videos, audio, time series). It supports datasets with both static and dynamic factors, and includes tools for automatic annotation, model evaluation, and visualization.
+MSD is a benchmark for evaluating disentangled representation learning on **sequential data** (e.g., video, audio, time series). It supports datasets with both static and dynamic factors, and includes tools for automatic annotation, model evaluation, and visualization.
 
 ![Overview](figures/benchmark_overview.png)
 
