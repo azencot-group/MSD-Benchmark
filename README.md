@@ -75,7 +75,7 @@ For details, see [docs/vlm_module.md](docs/vlm_module.md)
 
 ## 📎 Citation
 
-```T. Barami, N. Berman, I. Naiman, A. H. Hason, R. Ezra, O. Azencot, "Disentanglement Beyond Static vs. Dynamic: A Benchmark and Evaluation Framework for Multi-Factor Sequential Representations" in NeurIPS 2025, Forthcoming.```
+T. Barami, N. Berman, I. Naiman, A. H. Hason, R. Ezra, O. Azencot, "**Disentanglement Beyond Static vs. Dynamic: A Benchmark and Evaluation Framework for Multi-Factor Sequential Representations**" in NeurIPS 2025, Forthcoming.
 
 ---
 
