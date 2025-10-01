@@ -10,8 +10,10 @@ evaluation:
         name: VLMJudge
         parameters:
           vlm_backbone_cfg:
-            name: OpenAIGPTBackbone
-            parameters: {} # Will look for api_key in .openai/token.txt, otherwise the api_key can be passed as argument
+            name: QwenVLBackbone
+            parameters: {}
+#            name: OpenAIGPTBackbone
+#            parameters: {} # Will look for api_key in .openai/token.txt, otherwise the api_key can be passed as argument
       predictor_cfg:
         name: GradientBoostingClassifier
         parameters:

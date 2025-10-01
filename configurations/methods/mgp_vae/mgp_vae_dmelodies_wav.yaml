@@ -1,0 +1,81 @@
+model_name: mgp_vae
+name: ${model_name}_${dataset_variant}
+out_dir: ${msd_root}/models/${name}
+checkpoint_dir: ${out_dir}
+device: cuda
+load_model: best
+dataset: configurations/datasets/dmelodies_wav.yaml
+training_evaluation: configurations/evaluations/audio_training_evaluation.yaml
+testing_evaluation: configurations/evaluations/audio_testing_evaluation.yaml
+batch_size: 32
+test_batch_size: ${batch_size}
+latent_explorer_cfg:
+  name: PredictorLatentExplorer
+  parameters:
+    batch_exploration: false
+#  name: SwapLatentExplorer
+#  parameters:
+#    latent_divider_cfg:
+#      name: DisjointLatentDivider
+#      parameters:
+#        min_depth: 1
+#        max_depth: 3
+#    batch_exploration: false
+model:
+  name: MGP_VAE
+  parameters:
+    NUM_INPUT_CHANNELS: 282
+    NDIM: 10
+    NUM_FRAMES: 100
+    LSTM_HIDDEN: 256
+    H: 64
+    W: 64
+    fac: 0.9
+    NUM_FEA: 5
+    FEA:
+      - bb2
+      - bb2
+      - bb2
+      - bb2
+      - bb2
+    mean_start:
+      - -2.0
+      - -2.0
+      - -2.0
+      - -2.0
+      - -2.0
+    mean_end:
+      - 2.0
+      - 2.0
+      - 2.0
+      - 2.0
+      - 2.0
+    KEEP_RHO: false
+    mode: audio
+trainer:
+  name: MGP_VAE_Trainer
+  parameters:
+    kl_beta: 3.0
+    zero_mean: true
+  mse_loss:
+    name: MSELoss
+    parameters:
+      reduction: sum
+  scheduler:
+    name: StepLR
+    parameters:
+      step_size: 100
+      gamma: 0.5
+  optimizer:
+    name: Adam
+    parameters:
+      lr: 0.0001
+      betas:
+        - 0.5
+        - 0.999
+  resume: false
+  epochs:
+    start: 1
+    end: 500
+  save_model: true
+  verbose: 5

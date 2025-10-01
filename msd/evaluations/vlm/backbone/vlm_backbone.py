@@ -1,31 +1,10 @@
 import json
 import re
 from abc import ABC, abstractmethod
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Iterable
 
 from msd.configurations.msd_component import MSDComponent
 
-
-def extract_json(text: str) -> Dict:
-    """
-    Extracts a JSON object from a string. Strips markdown formatting if present.
-
-    :param text: The string containing JSON content, possibly inside a markdown block.
-    :return: The extracted JSON object as a Python dictionary.
-    :raises ValueError: If no valid JSON object is found.
-    """
-    # Remove markdown blocks (```json ... ```)
-    text = text.strip()
-    text = re.sub(r"^```(?:json)?\s*", "", text)
-    text = re.sub(r"\s*```$", "", text)
-
-    # Try to find a JSON object inside the string
-    match = re.search(r"{.*}", text, re.DOTALL)
-    if match:
-        json_str = match.group(0)
-        return json.loads(json_str)
-    else:
-        raise ValueError("No JSON object found in text.")
 
 class VLMBackbone(ABC, MSDComponent):
     """
@@ -36,11 +15,11 @@ class VLMBackbone(ABC, MSDComponent):
     """
 
     @abstractmethod
-    def generate_response(self, prompt) -> Dict:
+    def generate_response(self, prompt: Iterable) -> Dict:
         """
         Generate a model response from the given prompt.
 
-        :param prompt: A string or list of formatted messages.
+        :param prompt: A list of formatted messages.
         :return: The raw or structured output from the model.
         """
         pass
@@ -78,3 +57,24 @@ class VLMBackbone(ABC, MSDComponent):
         """
         pass
 
+    @staticmethod
+    def extract_json(text: str) -> Dict:
+        """
+        Extracts a JSON object from a string. Strips markdown formatting if present.
+
+        :param text: The string containing JSON content, possibly inside a markdown block.
+        :return: The extracted JSON object as a Python dictionary.
+        :raises ValueError: If no valid JSON object is found.
+        """
+        # Remove markdown blocks (```json ... ```)
+        text = text.strip()
+        text = re.sub(r"^```(?:json)?\s*", "", text)
+        text = re.sub(r"\s*```$", "", text)
+
+        # Try to find a JSON object inside the string
+        match = re.search(r"{.*}", text, re.DOTALL)
+        if match:
+            json_str = match.group(0)
+            return json.loads(json_str)
+        else:
+            raise ValueError("No JSON object found in text.")
