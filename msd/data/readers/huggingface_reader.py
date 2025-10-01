@@ -4,6 +4,7 @@ from pathlib import Path
 from os import path as osp
 from typing import Union, List, Dict, Tuple, Optional
 
+import datasets
 import numpy as np
 from datasets import load_dataset
 from huggingface_hub import hf_hub_download
@@ -48,13 +49,17 @@ class HuggingFaceReader(AbstractReader):
         if isinstance(index, int):
             index = [index]
         data = self.dataset[index]
-        x = data['x']
-        if len(x) == 1 and type(x[0]) is dict: # dtype is audio
-            x = x[0]['array']
-            x = np.pad(x, (0, 48000 - x.shape[0]), 'constant')
+        X = data['x']
+        if isinstance(self.dataset.info.features['x'], datasets.features.audio.Audio):
+            X = [x['array'] for x in X]
+            for i, x in enumerate(X):
+                if x.shape[0] < 48000:
+                    X[i] = np.pad(x, (0, 48000 - x.shape[0]), 'constant')
+                elif x.shape[0] > 48000:
+                    X[i] = x[:48000]
         static_factors = {k: np.array(data[k]).squeeze() for k in self.static_factors}
         dynamic_factors = {k: np.array(data[k]).squeeze() for k in self.dynamic_factors}
-        return x, static_factors, dynamic_factors
+        return X, static_factors, dynamic_factors
 
     def __repr__(self) -> str:
         """

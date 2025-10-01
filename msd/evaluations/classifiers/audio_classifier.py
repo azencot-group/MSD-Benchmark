@@ -2,7 +2,7 @@ from typing import Dict, Tuple
 
 import torch
 import torch.nn as nn
-from torchaudio.transforms import MelSpectrogram
+from torchaudio.transforms import MelSpectrogram, AmplitudeToDB
 
 from msd.evaluations.classifiers.abstract_classifier import AbstractClassifier
 
@@ -20,34 +20,43 @@ class AudioClassifier(AbstractClassifier):
         """
         super(AudioClassifier, self).__init__()
         self.classes = {k: v for k, v in classes.items() if not v['ignore']}
-        self.transform = MelSpectrogram(sample_rate=16000, n_fft=1024, win_length=640, f_max=8000, n_mels=128, power=2.0, norm='slaney')
-
-        # 2D convolutional stack for processing spectrogram input
-        self.feature_extractor = nn.Sequential(
-            nn.Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),  # Input: [B, 1, 128, T]
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2)),  # Downsample both frequency and time
-
-            nn.Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2)),
-
-            nn.Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-            nn.ReLU(),
-            nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2)),
-
-            nn.Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)),
-            nn.ReLU(),
-            nn.AdaptiveAvgPool2d((1, 1))  # Output: [B, 128, 1, 1]
+        self.transform = nn.Sequential(
+            MelSpectrogram(sample_rate=16000, n_fft=1024, hop_length=256, n_mels=128, f_max=8000, power=2.0, norm='slaney'),
+            AmplitudeToDB()
         )
 
+        # 2D convolutional stack with temporal pooling preserved
+        self.feature_extractor = nn.Sequential(
+            nn.Conv2d(1, 32, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+
+            nn.Conv2d(32, 64, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+
+            nn.Conv2d(64, 128, kernel_size=3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+
+            nn.Conv2d(128, 256, kernel_size=3, padding=1),
+            nn.ReLU(),
+
+            nn.AdaptiveAvgPool2d((None, 1))  # Preserve time, pool frequency
+        )
+
+        self.temporal_model = nn.GRU(input_size=256, hidden_size=128, num_layers=1, batch_first=True, bidirectional=True)
+
         def create_heads(classes_):
-            return nn.ModuleDict({feature_name: nn.Sequential(
-                nn.Linear(256,128),
-                nn.ReLU(),
-                nn.Linear(128, v['n_classes']),
-                nn.Softmax(dim=1)
-            ) for feature_name, v in classes_.items()})
+            return nn.ModuleDict({
+                feature_name: nn.Sequential(
+                    nn.Linear(256, 128),
+                    nn.ReLU(),
+                    nn.Linear(128, v['n_classes']),
+                    nn.Softmax(dim=1)
+                )
+                for feature_name, v in classes_.items()
+            })
 
         self.heads = create_heads(self.classes)
 
@@ -58,7 +67,7 @@ class AudioClassifier(AbstractClassifier):
         :param _x: Input waveform tensor of shape [B, T].
         :return: Transformed tensor of shape [B, 1, Mels, Frames].
         """
-        x = torch.log1p(self.transform(_x))
+        x = self.transform(_x)
         return x
 
     def forward(self, _x: torch.Tensor) -> Tuple[Dict, Dict]:
@@ -68,10 +77,14 @@ class AudioClassifier(AbstractClassifier):
         :param _x: Input tensor of shape [B, T].
         :return: Tuple of (sequence-level predictions, empty dict).
         """
-        x = self.feature_extractor(_x.unsqueeze(1))  # Shape: [B, 1, Mels, Time]
-        x = x.view(x.size(0), -1)  # Flatten to [B, Hidden Dim]
+        x = self.feature_extractor(_x.unsqueeze(1))  # [B, 1, Mels, Time] → [B, 256, T, 1]
+        x = x.squeeze(-1).transpose(1, 2)  # [B, 256, T] → [B, T, 256]
 
-        prediction_logits = {
-            feature_name: head(x) for feature_name, head in self.heads.items()
+        rnn_out, _ = self.temporal_model(x)  # [B, T, 256]
+        x_pooled = rnn_out.mean(dim=1)  # [B, 256]
+
+        predictions = {
+            feature_name: head(x_pooled) for feature_name, head in self.heads.items()
         }
-        return prediction_logits, {}
+
+        return predictions, {}

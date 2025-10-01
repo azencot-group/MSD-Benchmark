@@ -20,8 +20,8 @@ class AudioReconstruction(AbstractEvaluator):
             D = self.model.postprocess(self.model.decode(Z))
         _X, _D = X[:self.n_samples].detach().cpu().numpy(), D[:self.n_samples].detach().cpu().numpy()
         for i, (x, d) in enumerate(zip(_X, _D)):
-            self.logger.log_audio(f'evaluate/reconstruction/{i}_org', x, 16000, epoch)
-            self.logger.log_audio(f'evaluate/reconstruction/{i}_rec', d, 16000, epoch)
+            self.logger.log_audio(f'evaluate/reconstruction/{i}_org', x, 24000, epoch)
+            self.logger.log_audio(f'evaluate/reconstruction/{i}_rec', d, 24000, epoch)
         return {'score': 0}, None
 
     @property
