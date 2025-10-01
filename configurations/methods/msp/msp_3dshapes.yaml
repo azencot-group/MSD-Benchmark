@@ -1,0 +1,42 @@
+model_name: msp
+name: ${model_name}_${dataset_variant}
+out_dir: ${msd_root}/models/${name}
+checkpoint_dir: ${out_dir}
+device: cuda
+load_model: best
+dataset: configurations/datasets/3dshapes.yaml
+training_evaluation: configurations/evaluations/video_training_evaluation.yaml
+testing_evaluation: configurations/evaluations/video_testing_evaluation.yaml
+batch_size: 32
+test_batch_size: ${batch_size}
+latent_explorer_cfg:
+  name: PredictorLatentExplorer
+  parameters:
+    batch_exploration: true
+model:
+  name: SeqAELSTSQ
+  parameters:
+    dim_a: 16
+    dim_m: 256
+    ch_x: 3
+    k: 1.0
+    bottom_width: 8
+    predictive: True
+trainer:
+  name: MspTrainer
+  save_model: true
+  parameters: {}
+  resume: false
+  scheduler:
+    name: StepLR
+    parameters:
+      step_size: 500
+      gamma: 0.5
+  optimizer:
+    name: Adam
+    parameters:
+      lr: 0.0003
+  epochs:
+    start: 1
+    end: 100
+  verbose: 5
