@@ -15,7 +15,5 @@ datasets
 huggingface-hub
 imageio
 openai
-# for audio: conda install torch cuda=11.8, then:
-#tensorflow-gpu
-#torchaudio
+torchaudio
 #music21

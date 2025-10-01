@@ -10,9 +10,10 @@ dataset:
     name: DisentanglementDataset
     parameters: { }
   reader:
-    name: HuggingFaceReader
+    name: HuggingFaceAudioReader
     parameters:
       repo_id: "TalBarami/msd_${dataset_variant}"
+      t: 3
   preprocess_hooks:
     - name: ToNumpy
       parameters:

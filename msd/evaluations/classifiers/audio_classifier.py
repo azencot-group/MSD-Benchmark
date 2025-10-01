@@ -14,14 +14,28 @@ class AudioClassifier(AbstractClassifier):
     Designed to classify static audio-related features from temporal audio signals.
     """
 
-    def __init__(self, classes: Dict):
+    def __init__(self,
+                 classes: Dict,
+                 sample_rate: int = 16000,
+                 n_fft: int = 1024,
+                 hop_length: int = 256,
+                 n_mels: int = 128,
+                 f_max: int = 8000,
+                 power: float = 2.0,
+                 norm: str = 'slaney'):
         """
         :param classes: Dictionary of all available classes, including metadata.
         """
         super(AudioClassifier, self).__init__()
         self.classes = {k: v for k, v in classes.items() if not v['ignore']}
         self.transform = nn.Sequential(
-            MelSpectrogram(sample_rate=16000, n_fft=1024, hop_length=256, n_mels=128, f_max=8000, power=2.0, norm='slaney'),
+            MelSpectrogram(sample_rate=sample_rate,
+                           n_fft=n_fft,
+                           hop_length=hop_length,
+                           n_mels=n_mels,
+                           f_max=f_max,
+                           power=power,
+                           norm=norm),
             AmplitudeToDB()
         )
 
