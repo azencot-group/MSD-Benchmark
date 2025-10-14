@@ -41,7 +41,6 @@ class OpenAIGPTBackbone(VLMBackbone):
                 max_tokens=self.max_tokens
             )
             output_text = response.choices[0].message.content
-            # structured_output = json.loads(output_text)
             structured_output = self.extract_json(output_text)
 
             return structured_output

@@ -29,7 +29,6 @@ class ConfigInitializer:
         self.objects: Dict[str, Any] = {}
         self.logger: CompositeLogger = self.get_logger()
         self.logger.info('Initializer ready.')
-        # CLASS_REGISTRY |= scan_and_generate_registry(package_root='.')
 
     def get_dataset(self, split: str, loaders: bool = False, labels: bool = False, return_names: bool = False) -> Union[DisentanglementDataset, Tuple[DisentanglementDataset, DataLoader]]:
         """

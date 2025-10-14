@@ -13,9 +13,6 @@ latent_explorer_cfg:
   name: PredictorLatentExplorer
   parameters:
     batch_exploration: true
-#  name: SsmSkdLatentExplorer
-#  parameters:
-#    batch_exploration: false
 model:
   name: SsmSkd
   parameters:

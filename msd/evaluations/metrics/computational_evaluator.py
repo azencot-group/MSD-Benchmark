@@ -27,14 +27,6 @@ class ComputationalEvaluator(AbstractEvaluator):
         Gflops = sum([f.flops for f in prof.key_averages()]) / 1e6  # In GFLOPs
         return Gflops
 
-    # def get_model_one_epoch_time_in_milisec(self):
-    #     # _ = self.initializer.get_trainer()  # todo
-    #     start_time = time.time()
-    #     # trainer.train_step()
-    #     epoch_time = time.time() - start_time
-    #
-    #     return epoch_time
-
     def get_model_swap_time_in_milisec(self):
         x = next(iter(self.data_loader))[0]
         z1 = self.model.encode(torch.randn(self.batch_size, *x.shape[1:]).to(self.device))
@@ -58,13 +50,11 @@ class ComputationalEvaluator(AbstractEvaluator):
 
     def eval(self, epoch) -> (dict[str, float], pd.DataFrame):
         params_num = self.get_params_num()
-        # epoch_time = self.get_model_one_epoch_time_in_milisec()
         Gflops = self.calculate_flops()
         swap_time = self.get_model_swap_time_in_milisec()
         swap_gen_time = self.get_model_generation_time_in_milisec()
 
         res_dict = {'Number of Parameters': params_num,
-                    # 'Epoch Time (Milliseconds)': epoch_time,
                     'GFLOPs': Gflops,
                     'Time for Swap Function (Milliseconds)': swap_time,
                     'Time for Generation Function (Milliseconds)': swap_gen_time}

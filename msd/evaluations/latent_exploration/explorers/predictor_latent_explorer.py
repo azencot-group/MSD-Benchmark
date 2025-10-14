@@ -70,9 +70,6 @@ class PredictorLatentExplorer(LatentExplorer):
             _importance = predictor.feature_importances_
             importance[f] = _importance / _importance.sum()
 
-        # self.logger.log_table('evaluate/latent_explorer', importance, step=epoch)
-        # self.logger.log_table('evaluate/latent_explorer_accuracy', accuracy, step=epoch)
-
         _mapping = importance.idxmax(axis=1).to_dict()
         mapping = {f: [i for i, v in enumerate(_mapping.values()) if v == f] for f in factors if f in _mapping.values()}
         log_df = pd.merge(pd.DataFrame({'subset': {k: str(v) for k, v in mapping.items()}}), accuracy, left_index=True, right_index=True)

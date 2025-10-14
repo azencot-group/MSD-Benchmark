@@ -43,11 +43,6 @@ if __name__ == '__main__':
     exploration_set, _ = get_subset(args.exploration_subset, args.n_exploration)
     annotation_set, ann_indices = get_subset(args.annotation_subset, args.n_annotation)
 
-    # indices = rng.choice(len(ds), args.n_exploration + args.n_annotation, replace=False)
-    # ann_indices = indices[args.n_exploration:]
-    # exploration_set = ds[indices[:args.n_exploration]]
-    # annotation_set = ds[ann_indices]
-
     if args.vlm_backbone == 'openai':
         # Use OpenAI GPT-4o as the VLM backbone
         vlm = OpenAIGPTBackbone()

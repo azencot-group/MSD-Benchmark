@@ -53,7 +53,6 @@ class SKD_KoopmanLayer(nn.Module):
         # loss functions
         self.loss_func = nn.MSELoss()
         self.dynamic_threshold_loss = nn.Threshold(dynamic_thresh, 0)
-        # self.sp_b_thresh = nn.Threshold(args.sp_b_thresh, 0)
 
     def forward(self, Z):
         # Z is in b * t x c x 1 x 1
@@ -66,7 +65,6 @@ class SKD_KoopmanLayer(nn.Module):
         X, Y = Zr[:, :-1], Zr[:, 1:]
 
         # solve linear system (broadcast)
-        # Ct = torch.linalg.pinv(X.reshape(-1, self.k_dim)) @ Y.reshape(-1, self.k_dim)
         Ct = torch.linalg.lstsq(X.reshape(-1, self.k_dim), Y.reshape(-1, self.k_dim)).solution
 
         # predict (broadcast)

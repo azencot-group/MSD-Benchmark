@@ -7,9 +7,6 @@ class SsmSkdLatentExplorer(LatentExplorer):
         super().__init__(initializer, dataset_type, evaluation_manager, batch_exploration, n_samples)
 
     def eval(self, epoch, data_loader):
-        # if not self.evaluation_manager.testing:
-        #     return None, self.eval_duofactor()
-        # else:
         return None, (self.eval_multifactor(data_loader, 'static') |
                       self.eval_multifactor(data_loader, 'dynamic'))
 

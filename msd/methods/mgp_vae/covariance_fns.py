@@ -83,10 +83,6 @@ def covariance_function(p_type, nlen, H=None, fac=0.1):
 
 if __name__ == "__main__":
     s, d = gen_frac_cov(0.1, 5)
-    # s, d = gen_slowfeature(8)
-    # s, d = gen_OU_cov(5)
-    # s, d = gen_BB_cov(5)
-    # s, d = gen_BB2_cov(5)
 
     print(s)
     print(d)

@@ -18,13 +18,6 @@ class QwenVLBackbone(VLMBackbone):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
 
         self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(self.model_name, torch_dtype="auto", device_map="auto").eval().to(self.device)
-        # We recommend enabling flash_attention_2 for better acceleration and memory saving, especially in multi-image and video scenarios.
-        # model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-        #     "Qwen/Qwen2.5-VL-7B-Instruct",
-        #     torch_dtype=torch.bfloat16,
-        #     attn_implementation="flash_attention_2",
-        #     device_map="auto",
-        # )
         self.processor = AutoProcessor.from_pretrained(self.model_name)
 
     def _decode_image(self, image64: str) -> Image.Image:

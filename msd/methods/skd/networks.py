@@ -65,27 +65,6 @@ class KoopmanCNN(AbstractModel):
             return self.melspec.decode(x)
         return x
 
-    # def calc_melspec(self, x):
-    #     """Calculate mel spectrogram using the parameters the model expects."""
-    #     fft = tf.signal.stft(
-    #         x,
-    #         frame_length=self.WIN_LENGTH,
-    #         frame_step=self.HOP_LENGTH,
-    #         fft_length=self.N_FFT,
-    #         window_fn=tf.signal.hann_window,
-    #         pad_end=True)
-    #     fft_modulus = tf.abs(fft)
-    #
-    #     output = tf.matmul(fft_modulus, self.MEL_BASIS)
-    #
-    #     output = tf.clip_by_value(
-    #         output,
-    #         clip_value_min=self.CLIP_VALUE_MIN,
-    #         clip_value_max=self.CLIP_VALUE_MAX)
-    #     output = tf.math.log(output)
-    #     output = output / tf.math.log(self.CLIP_VALUE_MAX)
-    #     return output
-
     def encode(self, X):
         Z = self.encoder(X)
         Zr = Z.squeeze().reshape(-1, self.n_frames, self.k_dim)
@@ -134,9 +113,6 @@ class KoopmanCNN(AbstractModel):
         C = t_to_np(Ct)
         D, V = np.linalg.eig(C)
         U = np.linalg.inv(V)
-
-        # I = get_sorted_indices(D, self.static_mode)
-        # Id, Is = static_dynamic_split(D, I, self.static_mode, self.static_size)
 
         convex_size = 2
         Js = [np.random.permutation(batch_size) for _ in range(convex_size)]  # convex_size permutations

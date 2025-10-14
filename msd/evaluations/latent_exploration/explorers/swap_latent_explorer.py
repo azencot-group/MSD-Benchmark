@@ -93,10 +93,8 @@ class SwapLatentExplorer(LatentExplorer):
         _df = df.copy()
         _df[factors] = (_df[factors] * 100).round(2).astype(str) + '%'
         _df['subset'] = _df['subset'].astype(str)
-        # self.logger.log_table('evaluate/latent_explorer', _df, step=epoch)
 
         mapping, accuracy = self.generate_map(df, factors)
-        # self.logger.log('evaluate/mapping_accuracy', accuracy, step=epoch)
         self.logger.log_dict('evaluate/mapping', {k: str(v) for k, v in mapping.items()}, step=epoch)
         return accuracy, mapping
 

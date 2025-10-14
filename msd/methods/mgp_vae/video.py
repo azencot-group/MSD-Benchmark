@@ -146,7 +146,6 @@ class VideoDecoder(MGP_Base):
             x = self.bn6(self.elu(self.conv6(x)))
 
         x = self.my_tanh(self.conv7(x))
-        # x = (255 * x).view(BATCH_SIZE, self.NUM_FRAMES, self.NUM_INPUT_CHANNELS, self.H, self.W)
         x = x.view(BATCH_SIZE, self.NUM_FRAMES, self.NUM_INPUT_CHANNELS, self.H, self.W)
 
         return x

@@ -13,14 +13,6 @@ latent_explorer_cfg:
   name: PredictorLatentExplorer
   parameters:
     batch_exploration: false
-#  name: SwapLatentExplorer
-#  parameters:
-#    latent_divider_cfg:
-#      name: DisjointLatentDivider
-#      parameters:
-#        min_depth: 1
-#        max_depth: 3
-#    batch_exploration: false
 model:
   name: MGP_VAE
   parameters:

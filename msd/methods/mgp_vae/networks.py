@@ -108,12 +108,8 @@ class MGP_VAE(MGP_Base, AbstractModel):
     def get_prior_mean(self, batch_size):
         mean = torch.zeros(batch_size, self.NDIM, self.NUM_FRAMES).to(self.device)
 
-        # if self.NUM_FEA > 5 or self.NUM_FEA < 1:
-        #     raise Exception('Mean not implemented for NUM_FEA = {}'.format(self.NUM_FEA))
-
         for i in range(self.NUM_FRAMES):
             for f in range(self.NUM_FEA):
-                # if self.mean_start[f] is None and self.mean_end[f] is None:
                 if self.mean_start[f] is not None and self.mean_end[f] is not None:
                     mean[:, f * self.FEA_DIM:(f + 1) * self.FEA_DIM, i] = (self.mean_start[f] + i *
                                                                            ((self.mean_end[f] - self.mean_start[f]) /
