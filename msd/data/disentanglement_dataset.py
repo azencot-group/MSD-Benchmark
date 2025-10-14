@@ -1,4 +1,4 @@
-from typing import Dict, List, Tuple, Union, Set, Any
+from typing import Any, Dict, List, Set, Tuple, Union
 
 import numpy as np
 from torch.utils.data import Dataset

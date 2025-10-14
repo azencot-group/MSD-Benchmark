@@ -1,5 +1,5 @@
 import textwrap
-from typing import List, Optional, Any
+from typing import Any, List, Optional
 
 import imageio
 import matplotlib.pyplot as plt

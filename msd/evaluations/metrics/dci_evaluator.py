@@ -9,7 +9,7 @@ This evaluator measures:
 It relies on a latent explorer and a predictor to derive feature importances.
 """
 
-from typing import TYPE_CHECKING, Dict, Tuple, List
+from typing import Dict, List, TYPE_CHECKING, Tuple
 
 import numpy as np
 import pandas as pd
@@ -17,6 +17,7 @@ import torch
 from sklearn.model_selection import train_test_split
 
 from msd.evaluations.abstract_evaluator import AbstractEvaluator
+
 if TYPE_CHECKING:
     from msd.configurations.config_initializer import ConfigInitializer
     from msd.evaluations.evaluation_manager import EvaluationManager

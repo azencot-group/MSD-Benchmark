@@ -8,6 +8,7 @@ import pandas as pd
 
 from msd.utils.loading_utils import init_directories
 
+
 class BMSAirQualityPreprocess:
     """
     Converts the Beijing Multi-Site Air-Quality (BMS-AQ) dataset into the DisentanglementDataset format.

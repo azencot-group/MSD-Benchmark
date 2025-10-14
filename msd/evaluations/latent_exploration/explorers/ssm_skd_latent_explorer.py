@@ -2,6 +2,7 @@ import torch
 
 from msd.evaluations.latent_exploration.explorers.latent_explorer import LatentExplorer
 
+
 class SsmSkdLatentExplorer(LatentExplorer):
     def __init__(self, initializer, dataset_type, evaluation_manager, batch_exploration, n_samples=None):
         super().__init__(initializer, dataset_type, evaluation_manager, batch_exploration, n_samples)

@@ -3,12 +3,11 @@ from typing import Union
 
 import music21
 import numpy as np
-from tqdm import tqdm
-
 from constants import (ARP_DICT, ARP_REVERSE_DICT, DATASETS_FOLDER, NPZ_DATASET, OCTAVE_DICT, OCTAVE_REVERSE_DICT,
                        RHYTHM_DICT, SCALE_DICT, SCALE_REVERSE_DICT, TONIC_DICT, TONIC_REVERSE_DICT)
 from helpers import (SLUR_SYMBOL, TICK_VALUES, compute_tick_durations, get_latent_info, get_notes,
                      get_score_for_item, is_score_on_ticks, standard_name)
+from tqdm import tqdm
 
 
 class DMelodiesDataset:

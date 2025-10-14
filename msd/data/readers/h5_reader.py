@@ -1,5 +1,5 @@
 import json
-from typing import Union, List, Dict, Tuple
+from typing import Dict, List, Tuple, Union
 
 import h5py
 import numpy as np

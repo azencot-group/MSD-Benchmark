@@ -5,9 +5,9 @@ import torch
 import torch.nn as nn
 from einops import rearrange, repeat
 
+from msd.methods.abstract_model import AbstractModel
 from msd.methods.msp.base_networks import ResNetDecoder, ResNetEncoder
 from msd.methods.msp.dynamics_models import LinearTensorDynamicsLSTSQ
-from msd.methods.abstract_model import AbstractModel
 
 
 class SeqAELSTSQ(AbstractModel):

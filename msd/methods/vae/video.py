@@ -2,6 +2,7 @@ from typing import List
 
 import torch.nn as nn
 
+
 class VideoEncoder(nn.Module):
     def __init__(self, in_channels: int, latent_dim: int, hidden_dims: List, lstm_hidden_dim: int, width: int, height: int) -> None:
         super().__init__()

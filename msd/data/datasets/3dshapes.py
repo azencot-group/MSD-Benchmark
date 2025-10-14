@@ -2,7 +2,7 @@ import h5py
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 
-from msd.data.datasets.synthetic_video_generation.factor import StaticFactor, HarmonicSequence, CyclicSequence
+from msd.data.datasets.synthetic_video_generation.factor import CyclicSequence, HarmonicSequence, StaticFactor
 from msd.data.datasets.synthetic_video_generation.factor_space import FactorSpace
 from msd.data.datasets.synthetic_video_generation.state_mapper import StateMapper
 from msd.data.datasets.synthetic_video_generation.video_generator import VideoGenerator

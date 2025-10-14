@@ -2,7 +2,7 @@ from typing import Dict, Tuple
 
 import torch
 import torch.nn as nn
-from torchaudio.transforms import MelSpectrogram, AmplitudeToDB
+from torchaudio.transforms import AmplitudeToDB, MelSpectrogram
 
 from msd.evaluations.classifiers.abstract_classifier import AbstractClassifier
 

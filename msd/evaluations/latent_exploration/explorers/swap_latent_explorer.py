@@ -10,6 +10,7 @@ from msd.evaluations.evaluation_manager import EvaluationManager
 from msd.evaluations.latent_exploration.explorers.latent_explorer import LatentExplorer
 from msd.evaluations.latent_exploration.latent_manipulator import SwapManipulator
 
+
 class SwapLatentExplorer(LatentExplorer):
     """
     A latent explorer that uses controlled latent swaps to evaluate disentanglement.

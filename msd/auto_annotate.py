@@ -2,14 +2,13 @@ from argparse import ArgumentParser
 
 import numpy as np
 
-from msd.data.hooks import ToNumpy, Transpose, Normalize
-from msd.data.readers.h5_reader import Hdf5Reader
 from msd.data.disentanglement_dataset import DisentanglementDataset
+from msd.data.hooks import Normalize
+from msd.data.readers.h5_reader import Hdf5Reader
 from msd.evaluations.vlm.auto_annotator import AutoAnnotator
 from msd.evaluations.vlm.backbone.openai_backbone import OpenAIGPTBackbone
 from msd.evaluations.vlm.backbone.qwen25_backbone import QwenVLBackbone
 from msd.evaluations.vlm.prompt_setups.vlm_preprocessor import DynamicVLMPreprocessor
-from msd.utils.loading_utils import read_json
 
 if __name__ == '__main__':
     parser = ArgumentParser()

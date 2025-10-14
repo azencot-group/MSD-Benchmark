@@ -1,11 +1,11 @@
 import json
 import pickle
 from pathlib import Path
-from typing import Union, Any
+from typing import Any, Union
 
 import numpy as np
 import torch
-from omegaconf import OmegaConf, DictConfig
+from omegaconf import DictConfig, OmegaConf
 
 
 def init_directories(*dirs: Union[str, Path]) -> None:

@@ -1,5 +1,4 @@
-from abc import ABC, abstractmethod
-from typing import List, Any, Iterable, Dict, Union
+from typing import Any, Dict, Iterable, List, Union
 
 from msd.data.datasets.synthetic_video_generation.factor import Factor
 from msd.data.datasets.synthetic_video_generation.factor_space import FactorSpace

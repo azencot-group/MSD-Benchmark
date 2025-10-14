@@ -1,5 +1,5 @@
-from abc import abstractmethod, ABC
-from typing import Dict, Iterable, Union, List, Any, Optional
+from abc import ABC, abstractmethod
+from typing import Any, Dict, List, Optional, Union
 
 import numpy as np
 

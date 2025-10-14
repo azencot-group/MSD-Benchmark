@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional, List
+from typing import Any, Dict, List, Optional
 
 from matplotlib.figure import Figure
 from pandas import DataFrame

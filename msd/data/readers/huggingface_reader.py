@@ -1,10 +1,8 @@
 import json
-import os
-from pathlib import Path
 from os import path as osp
-from typing import Union, List, Dict, Tuple, Optional
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple, Union
 
-import datasets
 import numpy as np
 from datasets import load_dataset
 from huggingface_hub import hf_hub_download

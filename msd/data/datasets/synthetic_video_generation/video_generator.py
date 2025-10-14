@@ -1,6 +1,6 @@
 import json
-from typing import Union, Dict
 from os import path as osp
+from typing import Dict, Union
 
 import h5py
 import numpy as np

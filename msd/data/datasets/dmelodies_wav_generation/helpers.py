@@ -5,9 +5,8 @@ from typing import Union
 
 import music21
 import pandas as pd
-from tqdm import tqdm
-
 from constants import ARP_DICT, CHORD_DICT, LATENT_INFO_CSV, OCTAVE_DICT, RHYTHM_DICT, SCALE_DICT, SCALE_NOTES_DICT, TONIC_DICT
+from tqdm import tqdm
 
 SLUR_SYMBOL = '__'
 TICK_VALUES = [0, Fraction(1, 2)]

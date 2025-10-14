@@ -6,6 +6,7 @@ from torch.profiler import ProfilerActivity, profile, record_function
 
 from msd.evaluations.abstract_evaluator import AbstractEvaluator
 
+
 class ComputationalEvaluator(AbstractEvaluator):
     def __init__(self, initializer, dataset_type, evaluation_manager):
         super().__init__(initializer, dataset_type, evaluation_manager)

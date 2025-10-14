@@ -4,7 +4,6 @@ import numpy as np
 import torch
 from matplotlib import pyplot as plt
 
-
 from msd.data.visualization import compare_sequences, plot_sequence
 from msd.evaluations.abstract_evaluator import AbstractEvaluator
 from msd.evaluations.latent_exploration.latent_manipulator import SampleManipulator

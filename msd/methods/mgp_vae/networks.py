@@ -1,12 +1,10 @@
-import numpy as np
 import torch
-import torch.nn as nn
 
 from msd.methods.abstract_model import AbstractModel
 from msd.methods.mgp_vae.base_model import MGP_Base
 from msd.methods.mgp_vae.covariance_fns import covariance_function
-from msd.methods.mgp_vae.timeseries import TSEncoder, TSDecoder
-from msd.methods.mgp_vae.video import VideoEncoder, VideoDecoder
+from msd.methods.mgp_vae.timeseries import TSDecoder, TSEncoder
+from msd.methods.mgp_vae.video import VideoDecoder, VideoEncoder
 
 
 class MGP_VAE(MGP_Base, AbstractModel):

@@ -3,12 +3,11 @@ import multiprocessing
 import os
 
 import pandas as pd
-from joblib import Parallel, delayed
-from tqdm import tqdm
-
 from constants import RAW_DATA_FOLDER
 from dmelodies_dataset import DMelodiesDataset
 from helpers import get_file_name_for_item, get_score_for_item
+from joblib import Parallel, delayed
+from tqdm import tqdm
 
 
 def save_(index: int,

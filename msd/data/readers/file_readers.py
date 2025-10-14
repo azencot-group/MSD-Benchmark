@@ -1,15 +1,16 @@
 import os
-from os import path as osp
 from abc import abstractmethod
-from typing import Union, Dict, List, Tuple, Any
+from os import path as osp
+from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 import pandas as pd
-from torchvision import transforms
 from PIL import Image
 from scipy.io import wavfile
+from torchvision import transforms
 
 from msd.data.readers.abstract_reader import AbstractReader
+
 
 class FileReader(AbstractReader):
     def __init__(self, files_root: str, files_info: Union[str, pd.DataFrame], split: str, classes: Dict[str, Dict[str, Any]]):

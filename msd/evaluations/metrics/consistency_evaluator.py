@@ -12,7 +12,7 @@ Classes:
 """
 
 from abc import ABC
-from typing import Dict, List, Tuple, Set
+from typing import Dict, List, Set, Tuple
 
 import pandas as pd
 import torch

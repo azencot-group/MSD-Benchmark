@@ -11,6 +11,7 @@ from scipy.io import wavfile
 
 from msd.utils.loggers.base_logger import BaseLogger
 
+
 class NeptuneLogger(BaseLogger):
     """
     Logger that integrates with Neptune.ai for experiment tracking.

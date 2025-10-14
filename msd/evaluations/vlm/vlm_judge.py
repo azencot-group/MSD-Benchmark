@@ -1,7 +1,7 @@
 from typing import Dict
 
 from msd.evaluations.vlm.backbone.vlm_backbone import VLMBackbone
-from msd.evaluations.vlm.prompt_setups.prompt_builder import VLMTaskBuilder, ContrastiveTaskBuilder
+from msd.evaluations.vlm.prompt_setups.prompt_builder import ContrastiveTaskBuilder, VLMTaskBuilder
 from msd.evaluations.vlm.prompt_setups.vlm_preprocessor import VLMPreprocessor
 
 

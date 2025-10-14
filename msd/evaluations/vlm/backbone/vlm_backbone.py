@@ -1,7 +1,7 @@
 import json
 import re
 from abc import ABC, abstractmethod
-from typing import Dict, List, Union, Iterable
+from typing import Dict, Iterable, List, Union
 
 from msd.configurations.msd_component import MSDComponent
 

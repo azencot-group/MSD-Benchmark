@@ -1,12 +1,11 @@
 from typing import List, TypeVar
 
 import torch
-from torch import nn
 import torch.nn.functional as F
 
 from msd.methods.abstract_model import AbstractModel
-from msd.methods.vae.timeseries import TSEncoder, TSDecoder
-from msd.methods.vae.video import VideoEncoder, VideoDecoder
+from msd.methods.vae.timeseries import TSDecoder, TSEncoder
+from msd.methods.vae.video import VideoDecoder, VideoEncoder
 
 Tensor = TypeVar('torch.tensor')
 

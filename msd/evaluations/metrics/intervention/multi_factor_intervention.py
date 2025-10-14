@@ -7,12 +7,12 @@ according to factor-wise mappings discovered by a latent explorer.
 """
 
 from abc import ABC
-from typing import Dict, List, Tuple, Optional, TYPE_CHECKING
+from typing import Dict, List, Optional, TYPE_CHECKING, Tuple
 
 from torch import Tensor
 
-from msd.evaluations.metrics.intervention.intervention_evaluator import InterventionEvaluator
 from msd.evaluations.latent_exploration.latent_manipulator import SampleManipulator, SwapManipulator
+from msd.evaluations.metrics.intervention.intervention_evaluator import InterventionEvaluator
 
 if TYPE_CHECKING:
     from msd.configurations.config_initializer import ConfigInitializer

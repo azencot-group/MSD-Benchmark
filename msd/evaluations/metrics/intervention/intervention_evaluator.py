@@ -1,13 +1,13 @@
 from abc import abstractmethod
-from typing import TYPE_CHECKING, List, Dict, Tuple, Iterable
+from typing import Dict, Iterable, List, TYPE_CHECKING, Tuple
 
 import numpy as np
 import pandas as pd
 import torch
 from torch import Tensor
 
-from msd.evaluations.latent_exploration.latent_manipulator import Manipulator
 from msd.evaluations.abstract_evaluator import AbstractEvaluator
+from msd.evaluations.latent_exploration.latent_manipulator import Manipulator
 
 if TYPE_CHECKING:
     from msd.configurations.config_initializer import ConfigInitializer

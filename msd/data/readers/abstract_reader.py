@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Union, List, Dict, Any, Set, Tuple
+from typing import Any, Dict, List, Set, Tuple, Union
 
 import numpy as np
 from torch.utils.data import Dataset

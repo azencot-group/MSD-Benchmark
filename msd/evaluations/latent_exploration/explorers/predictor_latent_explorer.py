@@ -7,6 +7,7 @@ from msd.configurations.config_initializer import ConfigInitializer
 from msd.evaluations.evaluation_manager import EvaluationManager
 from msd.evaluations.latent_exploration.explorers.latent_explorer import LatentExplorer
 
+
 class PredictorLatentExplorer(LatentExplorer):
     """
     A LatentExplorer that evaluates latent variable disentanglement by training

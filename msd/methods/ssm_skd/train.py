@@ -1,7 +1,8 @@
 import torch
 
 from msd.methods.abstract_trainer import AbstractTrainer
-from msd.methods.ssm_skd.losses import EigenLoss, SSM_MSELoss, MultiLoss
+from msd.methods.ssm_skd.losses import EigenLoss, MultiLoss, SSM_MSELoss
+
 
 class SsmSkdTrainer(AbstractTrainer):
     def __init__(self, initializer, w_rec, w_pred, w_eigs, dynamic_thresh, gradient_clip_val):

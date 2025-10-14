@@ -1,6 +1,5 @@
 from os import path as osp
-from typing import Optional, List, Any, Tuple
-from typing import TYPE_CHECKING
+from typing import Any, List, Optional, TYPE_CHECKING, Tuple
 
 import numpy as np
 import pandas as pd

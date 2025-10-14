@@ -5,6 +5,7 @@ from matplotlib import pyplot as plt
 from msd.data.visualization import plot_sequences
 from msd.evaluations.abstract_evaluator import AbstractEvaluator
 
+
 class SampleVisualizer(AbstractEvaluator):
     def __init__(self, initializer, dataset_type, evaluation_manager, n_samples):
         super().__init__(initializer, dataset_type, evaluation_manager)

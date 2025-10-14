@@ -1,8 +1,9 @@
-from typing import Any, Dict, Type, List
 import ast
 import importlib
 import os
 from os import path as osp
+from typing import Dict, List, Type
+
 
 class ClassRegistry:
     def __init__(self, package_root: str = "."):

@@ -2,6 +2,7 @@ import torch
 
 from msd.methods.abstract_trainer import AbstractTrainer
 
+
 class SKD_Trainer(AbstractTrainer):
     def __init__(self, initializer, clip_norm=1.0):
         super().__init__(initializer)

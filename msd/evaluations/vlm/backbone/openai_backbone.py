@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Iterable, Dict, List, Union, Optional
+from typing import Dict, Iterable, List, Optional, Union
 
 from openai import OpenAI
 

@@ -2,6 +2,7 @@ from typing import List
 
 import torch.nn as nn
 
+
 class TSEncoder(nn.Module):
     def __init__(self, input_dim: int, latent_dim: int, hidden_dims: List[int], lstm_hidden_dim: int) -> None:
         super().__init__()

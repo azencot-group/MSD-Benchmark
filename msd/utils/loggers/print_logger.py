@@ -10,6 +10,7 @@ from tabulate import tabulate
 from msd.utils.loading_utils import init_directories
 from msd.utils.loggers.base_logger import BaseLogger
 
+
 class PrintLogger(BaseLogger):
     """
     Logger that prints logs to the console using Python's logging module.

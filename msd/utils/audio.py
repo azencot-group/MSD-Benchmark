@@ -1,10 +1,11 @@
 import numpy as np
 import torch
 import torchaudio
-import torchaudio.transforms as T
 import torchaudio.functional as F
+import torchaudio.transforms as T
 from torch import nn
 from vocos import Vocos
+
 
 class MelSpecEncoder(nn.Module):
     """

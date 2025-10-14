@@ -1,5 +1,5 @@
 import itertools as it
-from typing import List, Union, Dict
+from typing import Dict, List, Union
 
 from msd.data.datasets.synthetic_video_generation.factor import Factor
 

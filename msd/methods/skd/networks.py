@@ -6,8 +6,8 @@ import torchvision.transforms as T
 from torch import nn
 
 from msd.methods.abstract_model import AbstractModel
-from msd.methods.skd.encoding import skd_encNet, skd_decNet
-from msd.methods.skd.koopman_utils import get_sorted_indices, get_unique_num, static_dynamic_split, t_to_np
+from msd.methods.skd.encoding import skd_decNet, skd_encNet
+from msd.methods.skd.koopman_utils import get_sorted_indices, static_dynamic_split, t_to_np
 from msd.methods.skd.modules import SKD_KoopmanLayer
 
 

@@ -3,8 +3,8 @@ from os import path as osp
 
 import numpy as np
 import pandas as pd
-from tqdm import tqdm
 from sklearn.preprocessing import LabelEncoder
+from tqdm import tqdm
 
 from msd.data.readers.file_readers import AudioReader
 from msd.utils.loading_utils import read_json, write_json

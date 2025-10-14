@@ -1,12 +1,12 @@
-import json
-from typing import Iterable, Dict, Union, List
-
-from transformers import Qwen2_5_VLForConditionalGeneration, AutoTokenizer, AutoProcessor
-from qwen_vl_utils import process_vision_info
-from PIL import Image
-import torch
 import base64
+import json
 from io import BytesIO
+from typing import Dict, Iterable, List, Union
+
+import torch
+from PIL import Image
+from qwen_vl_utils import process_vision_info
+from transformers import AutoProcessor, Qwen2_5_VLForConditionalGeneration
 
 from msd.evaluations.vlm.backbone.vlm_backbone import VLMBackbone
 
