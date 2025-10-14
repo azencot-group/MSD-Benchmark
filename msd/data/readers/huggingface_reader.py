@@ -40,23 +40,19 @@ class HuggingFaceReader(AbstractReader):
         """
         return len(self.dataset)
 
+    def _get(self, index):
+        if isinstance(index, int):
+            index = [index]
+        data = self.dataset[index]
+        return data, data['x']
+
     def __getitem__(self, index: Union[int, slice, List]) -> Tuple[np.ndarray, Dict[str, np.ndarray], Dict[str, np.ndarray]]:
         """
         Retrieve sample(s) from the dataset.
         :param index: Index of the sample to retrieve.
         :return: Tuple containing the data, static factors, and dynamic factors.
         """
-        if isinstance(index, int):
-            index = [index]
-        data = self.dataset[index]
-        X = data['x']
-        if isinstance(self.dataset.info.features['x'], datasets.features.audio.Audio):
-            X = [x['array'] for x in X]
-            for i, x in enumerate(X):
-                if x.shape[0] < 48000:
-                    X[i] = np.pad(x, (0, 48000 - x.shape[0]), 'constant')
-                elif x.shape[0] > 48000:
-                    X[i] = x[:48000]
+        data, X = self._get(index)
         static_factors = {k: np.array(data[k]).squeeze() for k in self.static_factors}
         dynamic_factors = {k: np.array(data[k]).squeeze() for k in self.dynamic_factors}
         return X, static_factors, dynamic_factors
@@ -66,3 +62,20 @@ class HuggingFaceReader(AbstractReader):
         :return: String representation of the HuggingFace reader.
         """
         return f'{self.__class__.__name__}(split={self.split}, classes={set(self.classes.keys())}, repo_id={self.repo_id})'
+
+class HuggingFaceAudioReader(HuggingFaceReader):
+    def __init__(self, repo_id: str, split: str, t: float, token: Optional[str] = None):
+        super().__init__(repo_id, split, token)
+        self.t = t
+        self.sr = self.dataset.info.features['x'].sampling_rate
+        self.seq_len = int(self.sr * self.t)
+
+    def _get(self, index):
+        data, X = super()._get(index)
+        X = [x['array'] for x in X]
+        for i, x in enumerate(X):
+            if x.shape[0] < self.seq_len:
+                X[i] = np.pad(x, (0, self.seq_len - x.shape[0]), 'constant')
+            elif x.shape[0] > self.seq_len:
+                X[i] = x[:self.seq_len]
+        return data, np.stack(X)

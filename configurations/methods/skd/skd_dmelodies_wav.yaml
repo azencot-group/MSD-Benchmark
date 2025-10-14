@@ -1,0 +1,58 @@
+model_name: skd
+name: ${model_name}_${dataset_variant}
+out_dir: ${msd_root}/models/${name}
+checkpoint_dir: ${out_dir}
+device: cuda
+load_model: best
+dataset: configurations/datasets/dmelodies_wav.yaml
+training_evaluation: configurations/evaluations/audio_training_evaluation.yaml
+testing_evaluation: configurations/evaluations/audio_testing_evaluation.yaml
+batch_size: 32
+test_batch_size: 1024
+latent_explorer_cfg:
+  name: PredictorLatentExplorer
+  parameters:
+    batch_exploration: true
+model:
+  name: KoopmanCNN
+  parameters:
+    dropout: 0.2
+    noise: none
+    w_rec: 16.0
+    w_pred: 1.0
+    w_eigs: 0.25
+    eigs_thresh: 0.5
+    static_size: 8
+    static_mode: norm
+    dynamic_mode: real
+    dynamic_thresh: 0.275
+    ball_thresh: 0.6
+    device: ${device}
+    n_frames: 100
+    n_channels: 282
+    n_height: 64
+    n_width: 64
+    conv_dim: 32
+    k_dim: 54
+    hidden_dim: 90
+    rnn: both
+    lstm_dec_bi: false
+    data_type: audio
+trainer:
+  name: SKD_Trainer
+  save_model: true
+  parameters: {}
+  resume: false
+  scheduler:
+    name: StepLR
+    parameters:
+      step_size: 50
+      gamma: 0.5
+  optimizer:
+    name: Adam
+    parameters:
+      lr: 0.001
+  epochs:
+    start: 1
+    end: 500
+  verbose: 5

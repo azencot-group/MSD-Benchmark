@@ -8,15 +8,16 @@ from vocos import Vocos
 
 class MelSpecEncoder(nn.Module):
     """
-    PyTorch equivalent of the MelSpecEncoder using torchaudio.
-
-    The inverse mel decoder (e.g., SoundStream) is not available in PyTorch and is left as a placeholder.
+    PyTorch equivalent of the MelSpecEncoder using torchaudio and vocos.
     """
 
-    def __init__(self):
+    def __init__(self, orig_sr: int = 16000):
+        """
+        :param orig_sr: Original sample rate of the input audio.
+        """
         super().__init__()
-        self.orig_sr = 16000
-        self.target_sr = 24000
+        self.orig_sr = orig_sr
+        self.target_sr = 24000 # Vocos model sample rate
         self.max_value = 1e8
         self.resampler = torchaudio.transforms.Resample(orig_freq=self.orig_sr, new_freq=self.target_sr)
         self.mel_transform = T.MelSpectrogram(
@@ -29,8 +30,8 @@ class MelSpecEncoder(nn.Module):
         f_max=12000.0,
         mel_scale="htk",  # matches original config
         power=1.0,  # Vocos expects magnitude
-        norm=None,
-    )
+        norm=None)
+
         self.vocos = Vocos.from_pretrained("charactr/vocos-mel-24khz")
 
     def encode(self, x: torch.Tensor) -> torch.Tensor:
