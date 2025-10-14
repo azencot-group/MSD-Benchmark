@@ -34,8 +34,8 @@ The `LatentExplorer` is an abstract base class responsible for computing factor-
 
 Each `LatentExplorer` must implement the method:
 
-```python
-def eval(self, epoch: int, data_loader: DataLoader) -> Tuple[Any, Dict[str, List[int]]]:
+```
+eval(self, epoch: int, data_loader: DataLoader) -> Tuple[Any, Dict[str, List[int]]]
 ```
 
 This method receives an epoch number and a data loader, and returns a mapping of ground-truth factors to relevant latent dimensions.

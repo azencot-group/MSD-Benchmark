@@ -48,7 +48,7 @@ Every evaluation metric in MSD is a subclass of `AbstractEvaluator`. Each evalua
 ### Required Methods
 
 ```python
-def eval(self, epoch: int) -> Tuple[pd.Series, pd.DataFrame]
+def eval(self, epoch: int) -> Tuple[pd.Series, pd.DataFrame]:
     """
     Return a (summary, details) tuple.
     - summary: pd.Series with high-level scores (e.g., mean accuracy)
@@ -58,7 +58,7 @@ def eval(self, epoch: int) -> Tuple[pd.Series, pd.DataFrame]
 
 ```python
 @property
-def name(self) -> str
+def name(self) -> str:
     """
     Return the name of the evaluator.
     """

@@ -19,3 +19,5 @@ pytorch-pfn-extras
 einops
 torchaudio
 vocos
+qwen_vl_utils
+transformers
