@@ -73,7 +73,7 @@ For details, see [docs/vlm_module.md](docs/vlm_module.md)
 
 ---
 
-## ⚙️ Experimental Environment Details
+## ⚙️ Reference Experimental Environment
 
 | Component               | Authors'                           |
 |-------------------------|------------------------------------|
