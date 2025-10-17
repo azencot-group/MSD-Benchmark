@@ -44,4 +44,4 @@ trainer:
     start: 1
     end: 500
   save_model: true
-  verbose: 5
+  verbose: 10

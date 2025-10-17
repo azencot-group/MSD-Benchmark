@@ -41,5 +41,5 @@ trainer:
       lr: 0.001
   epochs:
     start: 1
-    end: 500
+    end: 150
   verbose: 10
