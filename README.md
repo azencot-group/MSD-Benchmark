@@ -11,7 +11,7 @@ MSD is a benchmark for evaluating disentangled representation learning on **sequ
 We recommend using a conda environment:
 
 ```bash
-conda create -n msd python=3.9
+conda create -n msd python=3.9.21
 conda activate msd
 pip install -r requirements.txt
 ```

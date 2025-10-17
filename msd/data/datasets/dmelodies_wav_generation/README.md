@@ -1,6 +1,6 @@
 # Instructions
 
-1. Use Python 3.8.
+1. Use Python 3.8.20.
 2. pip install -r requirements.txt
 3. python create_dmelodies_dataset.py --save-mid
 4. python download_midi_ddsp_weights.py
