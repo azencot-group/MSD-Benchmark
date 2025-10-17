@@ -16,7 +16,7 @@ conda activate msd
 pip install -r requirements.txt
 ```
 
-After installation, edit the `meta.yaml` file and set the `msd_root` field to the absolute path where all outputs (e.g., logs, models, results) should be saved.
+After installation, edit the `configurations/meta.yaml` file and set the `msd_root` field to the absolute path where all outputs (e.g., logs, models, results) should be saved.
 
 ---
 
