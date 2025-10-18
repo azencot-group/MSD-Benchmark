@@ -54,10 +54,10 @@ The model will be automatically loaded from the `checkpoint_dir` path specified 
 
 ## 🧠 Automatic Annotation
 
-Use `auto_annotate.py` to automatically discover and label factor spaces in new datasets using a vision-language model.
+Use `msd/auto_annotate.py` to automatically discover and label factor spaces in new datasets using a vision-language model.
 
 ```bash
-python auto_annotate.py \
+PYTHONPATH="." python msd/auto_annotate.py \
   --ds_path /path/to/dataset.h5 \
   --subset train \
   --n_exploration 500 \
