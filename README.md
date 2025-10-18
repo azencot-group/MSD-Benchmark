@@ -40,13 +40,13 @@ All training and evaluation is handled by the `run.py` script.
 ### Train a model:
 
 ```bash
-python run.py --run_config configurations/methods/ssm_skd/ssm_skd_sprites.yaml --train
+PYTHONPATH="." python msd/run.py --run_config configurations/methods/ssm_skd/ssm_skd_sprites.yaml --train
 ```
 
 ### Evaluate a model:
 
 ```bash
-python run.py --run_config configurations/methods/ssm_skd/ssm_skd_sprites.yaml --eval
+PYTHONPATH="." python msd/run.py --run_config configurations/methods/ssm_skd/ssm_skd_sprites.yaml --eval
 ```
 The model will be automatically loaded from the `checkpoint_dir` path specified in the configuration file.
 
