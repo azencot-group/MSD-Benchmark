@@ -83,8 +83,8 @@ For details, see [docs/vlm_module.md](docs/vlm_module.md)
 | Linux kernel version    | 5.14.0                             |
 | glibc version           | 2.34                               |
 | GPU                     | NVIDIA GeForce RTX 4090 (Gigabyte) |
-| NVIDIA driver version   | 565.57.01                          |
 | NVIDIA VBIOS version    | 95.02.3C.C0.93                     |
+| NVIDIA driver version   | 565.57.01                          |
 | CUDA version            | 12.6                               |
 | cuDNN version           | 9.5.1                              |
 | Python version          | 3.9.21                             |
