@@ -35,7 +35,7 @@ MSD is modular and consists of the following major components:
 
 ## 🚀 Running Experiments
 
-All training and evaluation is handled by the `run.py` script.
+All training and evaluation is handled by the `msd/run.py` script.
 
 ### Train a model:
 
