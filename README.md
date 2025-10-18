@@ -50,6 +50,10 @@ PYTHONPATH="." python msd/run.py --run_config configurations/methods/ssm_skd/ssm
 ```
 The model will be automatically loaded from the `checkpoint_dir` path specified in the configuration file.
 
+### Model Zoo:
+
+See HuggingFace: [TalBarami/msd_models](https://huggingface.co/TalBarami/msd_models/tree/main)
+
 ---
 
 ## 🧠 Automatic Annotation
