@@ -80,6 +80,7 @@ For details, see [docs/vlm_module.md](docs/vlm_module.md)
 |-------------------------|------------------------------------|
 | CPU                     | AMD EPYC 7002 Series Processor     |
 | CPU architecture        | x86_64                             |
+| RAM                     | 256 GB                             |
 | Linux kernel version    | 5.14.0                             |
 | glibc version           | 2.34                               |
 | GPU                     | NVIDIA GeForce RTX 4090 (Gigabyte) |
